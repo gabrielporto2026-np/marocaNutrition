@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maroca Nutrition - Sistema Avançado de Nutrição</title>
+    <title>NutriSystem Pro - Sistema Avançado de Nutrição</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* ===== VARIÁVEIS GLOBAIS ===== */
         :root {
             --primary-color: #2e7d32;
-            --primary-light: #60ad5e;
-            --primary-dark: #005005;
+            --primary-light: #4caf50;
+            --primary-dark: #1b5e20;
             --secondary-color: #ff9800;
             --accent-color: #2196f3;
             --light-color: #f8f9fa;
@@ -623,97 +623,12 @@
             }
         }
 
-        /* ===== PÁGINA DE CLIENTES ESPECÍFICA ===== */
-        .client-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .client-stat-card {
-            background-color: white;
-            border-radius: var(--border-radius);
-            padding: 15px;
-            text-align: center;
-            border-left: 4px solid var(--primary-color);
-        }
-
-        .client-stat-value {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-
-        .client-stat-label {
-            font-size: 0.9rem;
-            color: var(--gray-color);
-        }
-
-        /* ===== ESTILOS ADICIONAIS ===== */
-        .objective-badge {
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .objective-emagrecimento {
-            background-color: #e8f5e9;
-            color: #2e7d32;
-        }
-
-        .objective-hipertrofia {
-            background-color: #e3f2fd;
-            color: #1565c0;
-        }
-
-        .objective-saude {
-            background-color: #fff3e0;
-            color: #ef6c00;
-        }
-
-        .objective-manutencao {
-            background-color: #f3e5f5;
-            color: #7b1fa2;
-        }
-
-        /* ===== BOTÕES DE EXPORTAÇÃO ===== */
-        .export-options {
-            background-color: #f8f9fa;
-            border-radius: var(--border-radius);
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .export-buttons {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 10px;
-        }
-
-        /* ===== BOTÕES DE CATEGORIA ===== */
-        .food-category-btn {
-            padding: 8px 16px;
-            background-color: var(--light-gray);
-            border: none;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .food-category-btn:hover,
-        .food-category-btn.active {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
         /* ===== TABS ===== */
         .tabs {
             display: flex;
             border-bottom: 2px solid #e9ecef;
             margin-bottom: 20px;
+            flex-wrap: wrap;
         }
 
         .tab {
@@ -725,6 +640,7 @@
             color: var(--gray-color);
             border-bottom: 2px solid transparent;
             transition: var(--transition);
+            white-space: nowrap;
         }
 
         .tab:hover {
@@ -820,7 +736,7 @@
         /* ===== ORIENTAÇÕES NUTRICIONAIS ===== */
         .guidelines-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 20px;
             margin-top: 20px;
         }
@@ -831,6 +747,11 @@
             padding: 20px;
             box-shadow: var(--box-shadow);
             border: 1px solid #eee;
+            transition: var(--transition);
+        }
+
+        .guideline-card:hover {
+            transform: translateY(-3px);
         }
 
         .guideline-header {
@@ -848,17 +769,19 @@
         }
 
         .guideline-content {
-            color: var(--gray-color);
+            color: var(--dark-color);
             font-size: 0.95rem;
         }
 
         .guideline-list {
             list-style-position: inside;
             margin-top: 10px;
+            padding-left: 5px;
         }
 
         .guideline-list li {
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            line-height: 1.5;
         }
 
         /* ===== SUBSTITUIÇÕES ALIMENTARES ===== */
@@ -933,18 +856,25 @@
             border-radius: var(--border-radius);
             margin-top: 10px;
             font-weight: 500;
+            border-left: 4px solid;
         }
 
         .message-success {
             background-color: #e8f5e9;
             color: #2e7d32;
-            border-left: 4px solid #4caf50;
+            border-left-color: #4caf50;
         }
 
         .message-improve {
             background-color: #fff3e0;
             color: #ef6c00;
-            border-left: 4px solid #ff9800;
+            border-left-color: #ff9800;
+        }
+
+        .message-info {
+            background-color: #e3f2fd;
+            color: #1565c0;
+            border-left-color: #2196f3;
         }
 
         /* ===== ADIPÔMETRO ===== */
@@ -968,33 +898,126 @@
 
         .adipometer-input input {
             width: 100px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
         }
 
         /* ===== MEDIDAS CASEIRAS ===== */
-        .home-measure-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        .home-measure-table th {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 12px;
-            text-align: left;
-        }
-
-        .home-measure-table td {
-            padding: 10px 12px;
-            border-bottom: 1px solid #eee;
-        }
-
         .home-measure-badge {
             padding: 4px 8px;
             border-radius: 4px;
             font-size: 0.85rem;
             background-color: #e3f2fd;
             color: #1565c0;
+            display: inline-block;
+        }
+
+        /* ===== BADGES ===== */
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .badge-warning {
+            background-color: #fff3e0;
+            color: #ef6c00;
+        }
+
+        .badge-danger {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+
+        .badge-info {
+            background-color: #e3f2fd;
+            color: #1565c0;
+        }
+
+        /* ===== CARD DE PACIENTE ===== */
+        .patient-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 20px;
+        }
+
+        .patient-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .patient-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .status-active {
+            background-color: var(--success-color);
+        }
+
+        .status-inactive {
+            background-color: var(--gray-color);
+        }
+
+        /* ===== CHECKBOX STYLE ===== */
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
         }
     </style>
 </head>
@@ -1005,13 +1028,13 @@
             <div class="logo">
                 <i class="fas fa-apple-alt"></i>
                 <div class="logo-text">
-                    <h1>Maroca Nutrition</h1>
+                    <h1>NutriSystem Pro</h1>
                     <p>Sistema avançado de nutrição clínica</p>
                 </div>
             </div>
             
             <div class="user-info">
-                <div class="user-avatar">MN</div>
+                <div class="user-avatar">NS</div>
                 <div>
                     <p><strong>Nutricionista</strong></p>
                     <p>Maria Oliveira</p>
@@ -1032,13 +1055,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="patients">
+                        <i class="fas fa-users"></i> Pacientes
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="#" class="nav-link" data-page="menus">
                         <i class="fas fa-utensils"></i> Cardápios
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" data-page="clients">
-                        <i class="fas fa-users"></i> Clientes
+                    <a href="#" class="nav-link" data-page="assessments">
+                        <i class="fas fa-clipboard-check"></i> Avaliações
                     </a>
                 </li>
                 <li class="nav-item">
@@ -1047,8 +1075,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" data-page="taco">
-                        <i class="fas fa-database"></i> Tabela TACO
+                    <a href="#" class="nav-link" data-page="guidelines">
+                        <i class="fas fa-book-medical"></i> Orientações
                     </a>
                 </li>
                 <li class="nav-item">
@@ -1057,13 +1085,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link" data-page="guidelines">
-                        <i class="fas fa-book-medical"></i> Orientações
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-page="export">
-                        <i class="fas fa-file-export"></i> Exportar
+                    <a href="#" class="nav-link" data-page="reports">
+                        <i class="fas fa-chart-bar"></i> Relatórios
                     </a>
                 </li>
             </ul>
@@ -1075,63 +1098,67 @@
                 <!-- Dashboard -->
                 <div id="dashboard-page" class="page">
                     <h2 class="page-title">Dashboard</h2>
+                    
                     <div class="dashboard-cards">
+                        <div class="card">
+                            <i class="fas fa-users"></i>
+                            <h3 id="total-patients">0</h3>
+                            <p>Pacientes Ativos</p>
+                        </div>
                         <div class="card">
                             <i class="fas fa-utensils"></i>
                             <h3 id="total-menus">0</h3>
                             <p>Cardápios Criados</p>
                         </div>
                         <div class="card">
-                            <i class="fas fa-users"></i>
-                            <h3 id="total-clients">0</h3>
-                            <p>Clientes Ativos</p>
-                        </div>
-                        <div class="card">
-                            <i class="fas fa-carrot"></i>
-                            <h3 id="total-foods">0</h3>
-                            <p>Alimentos Cadastrados</p>
+                            <i class="fas fa-clipboard-check"></i>
+                            <h3 id="total-assessments">0</h3>
+                            <p>Avaliações Hoje</p>
                         </div>
                         <div class="card">
                             <i class="fas fa-chart-line"></i>
-                            <h3 id="active-clients">0</h3>
-                            <p>Clientes Ativos</p>
+                            <h3 id="followups-due">0</h3>
+                            <p>Retornos Pendentes</p>
                         </div>
                     </div>
                     
                     <div style="margin-top: 30px;">
                         <h3 style="margin-bottom: 15px;">Ações Rápidas</h3>
                         <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                            <button class="btn" id="create-new-menu">
-                                <i class="fas fa-plus"></i> Novo Cardápio
+                            <button class="btn" onclick="app.openModal('new-patient-modal')">
+                                <i class="fas fa-user-plus"></i> Novo Paciente
                             </button>
-                            <button class="btn btn-secondary" id="add-new-food">
-                                <i class="fas fa-carrot"></i> Adicionar Alimento
+                            <button class="btn btn-secondary" onclick="app.openModal('new-menu-modal')">
+                                <i class="fas fa-utensils"></i> Novo Cardápio
                             </button>
-                            <button class="btn" id="add-new-client">
-                                <i class="fas fa-user-plus"></i> Adicionar Cliente
+                            <button class="btn btn-accent" onclick="app.openModal('new-assessment-modal')">
+                                <i class="fas fa-weight"></i> Nova Avaliação
                             </button>
-                            <button class="btn btn-accent" id="quick-assessment">
-                                <i class="fas fa-weight"></i> Avaliação Rápida
+                            <button class="btn" onclick="app.navigateTo('guidelines')">
+                                <i class="fas fa-book-medical"></i> Orientações
                             </button>
                         </div>
                     </div>
                     
                     <div style="margin-top: 40px;">
-                        <h3 style="margin-bottom: 20px;">Cardápios Recentes</h3>
-                        <div id="recent-menus" class="menus-container">
-                            <!-- Populado pelo JavaScript -->
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <h3>Pacientes Recentes</h3>
+                            <button class="btn btn-small" onclick="app.navigateTo('patients')">Ver Todos</button>
+                        </div>
+                        <div id="recent-patients" class="table-container">
+                            <!-- Populado por JavaScript -->
                         </div>
                     </div>
                 </div>
                 
                 <!-- Outras páginas -->
+                <div id="patients-page" class="page" style="display: none;"></div>
                 <div id="menus-page" class="page" style="display: none;"></div>
-                <div id="clients-page" class="page" style="display: none;"></div>
+                <div id="assessments-page" class="page" style="display: none;"></div>
                 <div id="foods-page" class="page" style="display: none;"></div>
-                <div id="taco-page" class="page" style="display: none;"></div>
-                <div id="substitutions-page" class="page" style="display: none;"></div>
                 <div id="guidelines-page" class="page" style="display: none;"></div>
-                <div id="export-page" class="page" style="display: none;"></div>
+                <div id="substitutions-page" class="page" style="display: none;"></div>
+                <div id="reports-page" class="page" style="display: none;"></div>
             </div>
         </main>
     </div>
@@ -1140,262 +1167,184 @@
     <footer>
         <div class="container footer-content">
             <div>
-                <h3>Maroca Nutrition</h3>
-                <p>Sistema avançado de nutrição clínica</p>
+                <h3>NutriSystem Pro</h3>
+                <p>Sistema completo de gestão nutricional</p>
             </div>
             <div>
-                <p>&copy; 2023 Maroca Nutrition. Todos os direitos reservados.</p>
+                <p>&copy; 2023 NutriSystem Pro. Versão 2.0</p>
             </div>
         </div>
     </footer>
     
     <!-- Modais -->
-    <div id="create-menu-modal" class="modal">
+    
+    <!-- Modal Novo Paciente -->
+    <div id="new-patient-modal" class="modal">
         <div class="modal-content">
-            <span class="close-modal">&times;</span>
+            <span class="close-modal" onclick="app.closeModal('new-patient-modal')">&times;</span>
             <div class="modal-header">
-                <h3>Criar Novo Cardápio</h3>
+                <h3>Cadastrar Novo Paciente</h3>
             </div>
-            <form id="create-menu-form">
+            <form id="new-patient-form" onsubmit="app.savePatient(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="patient-name">Nome Completo *</label>
+                        <input type="text" id="patient-name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="patient-email">Email</label>
+                        <input type="email" id="patient-email" class="form-control">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="patient-phone">Telefone *</label>
+                        <input type="tel" id="patient-phone" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="patient-birthdate">Data de Nascimento *</label>
+                        <input type="date" id="patient-birthdate" class="form-control" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="patient-gender">Sexo *</label>
+                        <select id="patient-gender" class="form-control" required>
+                            <option value="">Selecione</option>
+                            <option value="M">Masculino</option>
+                            <option value="F">Feminino</option>
+                            <option value="O">Outro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="patient-type">Tipo de Paciente *</label>
+                        <select id="patient-type" class="form-control" required>
+                            <option value="normal">Normal</option>
+                            <option value="amputado">Amputado</option>
+                            <option value="acamado">Acamado</option>
+                            <option value="cadeirante">Cadeirante</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Condições de Saúde</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="conditions" value="diabetes"> Diabetes
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="conditions" value="hipertensao"> Hipertensão
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="conditions" value="colesterol"> Colesterol Alto
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="conditions" value="triglicerideos"> Triglicerídeos Alto
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="conditions" value="figado"> Doenças do Fígado
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="conditions" value="pancreatite"> Pancreatite
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="conditions" value="cardiovascular"> Doenças Cardiovasculares
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="conditions" value="intolerancia"> Intolerâncias Alimentares
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="patient-objective">Objetivo Principal</label>
+                    <select id="patient-objective" class="form-control">
+                        <option value="emagrecimento">Emagrecimento</option>
+                        <option value="hipertrofia">Hipertrofia Muscular</option>
+                        <option value="saude">Melhora da Saúde</option>
+                        <option value="manutencao">Manutenção do Peso</option>
+                        <option value="performance">Performance Esportiva</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="patient-notes">Observações</label>
+                    <textarea id="patient-notes" class="form-control" rows="3" placeholder="Observações iniciais..."></textarea>
+                </div>
+                
+                <div style="margin-top: 25px; display: flex; gap: 10px;">
+                    <button type="submit" class="btn">Salvar Paciente</button>
+                    <button type="button" class="btn btn-secondary" onclick="app.closeModal('new-patient-modal')">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Modal Nova Avaliação -->
+    <div id="new-assessment-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="app.closeModal('new-assessment-modal')">&times;</span>
+            <div class="modal-header">
+                <h3>Nova Avaliação Antropométrica</h3>
+            </div>
+            <form id="new-assessment-form" onsubmit="app.saveAssessment(event)">
                 <div class="tabs">
-                    <button type="button" class="tab active" data-tab="basic">Informações Básicas</button>
-                    <button type="button" class="tab" data-tab="disease">Condições de Saúde</button>
-                    <button type="button" class="tab" data-tab="meals">Plano Alimentar</button>
+                    <button type="button" class="tab active" data-tab="basic">Dados Básicos</button>
+                    <button type="button" class="tab" data-tab="anthropometric">Antropometria</button>
+                    <button type="button" class="tab" data-tab="adipometer">Adipômetro</button>
+                    <button type="button" class="tab" data-tab="results">Resultados</button>
                 </div>
                 
                 <div class="tab-content active" id="tab-basic">
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="menu-name">Nome do Cardápio *</label>
-                            <input type="text" id="menu-name" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="menu-client">Cliente *</label>
-                            <select id="menu-client" class="form-control" required>
-                                <option value="">Selecione um cliente</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="menu-objective">Objetivo</label>
-                            <select id="menu-objective" class="form-control">
-                                <option value="emagrecimento">Emagrecimento</option>
-                                <option value="hipertrofia">Hipertrofia</option>
-                                <option value="saude">Saúde</option>
-                                <option value="manutencao">Manutenção</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="menu-days">Duração (dias)</label>
-                            <input type="number" id="menu-days" class="form-control" min="1" max="30" value="7">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="menu-description">Descrição</label>
-                        <textarea id="menu-description" class="form-control" rows="3"></textarea>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="menu-calories">Calorias Diárias</label>
-                            <input type="number" id="menu-calories" class="form-control" min="800" max="5000" value="1800">
-                        </div>
-                        <div class="form-group">
-                            <label for="menu-protein">Proteínas (g)</label>
-                            <input type="number" id="menu-protein" class="form-control" min="0" max="300">
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="menu-carbs">Carboidratos (g)</label>
-                            <input type="number" id="menu-carbs" class="form-control" min="0" max="500">
-                        </div>
-                        <div class="form-group">
-                            <label for="menu-fat">Gorduras (g)</label>
-                            <input type="number" id="menu-fat" class="form-control" min="0" max="150">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="tab-content" id="tab-disease">
-                    <div class="form-group">
-                        <label>Condições de Saúde do Cliente</label>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-top: 10px;">
-                            <label style="display: flex; align-items: center; gap: 8px;">
-                                <input type="checkbox" name="disease" value="diabetes"> Diabetes
-                            </label>
-                            <label style="display: flex; align-items: center; gap: 8px;">
-                                <input type="checkbox" name="disease" value="hipertensao"> Hipertensão
-                            </label>
-                            <label style="display: flex; align-items: center; gap: 8px;">
-                                <input type="checkbox" name="disease" value="colesterol"> Colesterol Alto
-                            </label>
-                            <label style="display: flex; align-items: center; gap: 8px;">
-                                <input type="checkbox" name="disease" value="triglicerideos"> Triglicerídeos Alto
-                            </label>
-                            <label style="display: flex; align-items: center; gap: 8px;">
-                                <input type="checkbox" name="disease" value="figado"> Doenças do Fígado
-                            </label>
-                            <label style="display: flex; align-items: center; gap: 8px;">
-                                <input type="checkbox" name="disease" value="pancreatite"> Pancreatite
-                            </label>
-                            <label style="display: flex; align-items: center; gap: 8px;">
-                                <input type="checkbox" name="disease" value="cardiovascular"> Doenças Cardiovasculares
-                            </label>
-                            <label style="display: flex; align-items: center; gap: 8px;">
-                                <input type="checkbox" name="disease" value="intolerancia"> Intolerâncias Alimentares
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Restrições Alimentares</label>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin-top: 10px;">
-                            <label style="display: flex; align-items: center; gap: 8px;">
-                                <input type="checkbox" name="restriction" value="gluten"> Sem Glúten
-                            </label>
-                            <label style="display: flex; align-items: center; gap: 8px;">
-                                <input type="checkbox" name="restriction" value="lactose"> Sem Lactose
-                            </label>
-                            <label style="display: flex; align-items: center; gap: 8px;">
-                                <input type="checkbox" name="restriction" value="acucar"> Sem Açúcar
-                            </label>
-                            <label style="display: flex; align-items: center; gap: 8px;">
-                                <input type="checkbox" name="restriction" value="sodio"> Baixo Sódio
-                            </label>
-                            <label style="display: flex; align-items: center; gap: 8px;">
-                                <input type="checkbox" name="restriction" value="gordura"> Baixa Gordura
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="special-notes">Observações Específicas</label>
-                        <textarea id="special-notes" class="form-control" rows="4" placeholder="Observações sobre a condição de saúde do cliente..."></textarea>
-                    </div>
-                </div>
-                
-                <div class="tab-content" id="tab-meals">
-                    <div class="diet-editor">
-                        <h4 style="margin-bottom: 20px; color: var(--primary-color);">Plano Alimentar</h4>
-                        <div id="meal-times-container">
-                            <div class="meal-time-group" data-meal-id="1">
-                                <div class="meal-time-header">
-                                    <div class="meal-time-title">
-                                        <input type="text" class="form-control meal-time-input" value="Café da manhã (8h)" style="width: 200px;">
-                                    </div>
-                                    <button type="button" class="btn btn-small btn-danger remove-meal-time">Remover</button>
-                                </div>
-                                <div class="meal-items-container">
-                                    <div class="meal-item-row">
-                                        <input type="text" class="form-control meal-item-input" placeholder="Ex: 2 ovos mexidos, 1 fatia de pão integral">
-                                        <button type="button" class="remove-meal-item">×</button>
-                                    </div>
-                                </div>
-                                <button type="button" class="btn btn-small add-meal-item">+ Adicionar Item</button>
-                            </div>
-                        </div>
-                        <button type="button" class="btn btn-secondary add-meal-time-btn" id="add-meal-time">
-                            <i class="fas fa-plus"></i> Adicionar Refeição
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="form-group" style="margin-top: 25px; display: flex; gap: 10px;">
-                    <button type="submit" class="btn">Criar Cardápio</button>
-                    <button type="button" class="btn btn-secondary close-modal-btn">Cancelar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal Avaliação Antropométrica -->
-    <div id="assessment-modal" class="modal">
-        <div class="modal-content modal-lg">
-            <span class="close-modal">&times;</span>
-            <div class="modal-header">
-                <h3>Avaliação Antropométrica</h3>
-            </div>
-            <form id="assessment-form">
-                <input type="hidden" id="assessment-client-id">
-                
-                <div class="tabs">
-                    <button type="button" class="tab active" data-tab="basic-measures">Medidas Básicas</button>
-                    <button type="button" class="tab" data-tab="adipometer">Adipômetro</button>
-                    <button type="button" class="tab" data-tab="circumferences">Circunferências</button>
-                    <button type="button" class="tab" data-tab="results">Resultados</button>
-                </div>
-                
-                <div class="tab-content active" id="tab-basic-measures">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="assessment-client">Cliente *</label>
-                            <select id="assessment-client" class="form-control" required>
-                                <option value="">Selecione um cliente</option>
+                            <label for="assessment-patient">Paciente *</label>
+                            <select id="assessment-patient" class="form-control" required>
+                                <option value="">Selecione um paciente</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="assessment-date">Data da Avaliação *</label>
-                            <input type="date" id="assessment-date" class="form-control" required value="">
+                            <input type="date" id="assessment-date" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="tab-anthropometric">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="assessment-weight">Peso (kg) *</label>
+                            <input type="number" id="assessment-weight" class="form-control" step="0.1" min="20" max="300" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="assessment-height">Altura (cm) *</label>
+                            <input type="number" id="assessment-height" class="form-control" step="0.1" min="50" max="250" required>
+                        </div>
+                    </div>
+                    
+                    <h4 style="margin: 20px 0 15px 0; color: var(--primary-color);">Circunferências (cm)</h4>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="circ-waist">Cintura</label>
+                            <input type="number" id="circ-waist" class="form-control" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label for="circ-abdomen">Abdominal</label>
+                            <input type="number" id="circ-abdomen" class="form-control" step="0.1">
                         </div>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="assessment-weight">Peso (kg) *</label>
-                            <input type="number" id="assessment-weight" class="form-control" required min="20" max="300" step="0.1">
+                            <label for="circ-hip">Quadril</label>
+                            <input type="number" id="circ-hip" class="form-control" step="0.1">
                         </div>
                         <div class="form-group">
-                            <label for="assessment-height">Altura (cm) *</label>
-                            <input type="number" id="assessment-height" class="form-control" required min="50" max="250">
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>Tipo de Paciente</label>
-                        <div style="display: flex; gap: 20px; margin-top: 10px;">
-                            <label style="display: flex; align-items: center; gap: 8px;">
-                                <input type="radio" name="patient-type" value="normal" checked> Normal
-                            </label>
-                            <label style="display: flex; align-items: center; gap: 8px;">
-                                <input type="radio" name="patient-type" value="amputado"> Amputado
-                            </label>
-                            <label style="display: flex; align-items: center; gap: 8px;">
-                                <input type="radio" name="patient-type" value="acamado"> Acamado
-                            </label>
-                            <label style="display: flex; align-items: center; gap: 8px;">
-                                <input type="radio" name="patient-type" value="cadeirante"> Cadeirante
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <!-- Campos específicos para amputados -->
-                    <div id="amputation-fields" style="display: none; margin-top: 20px; padding: 15px; background-color: #f8f9fa; border-radius: var(--border-radius);">
-                        <h4 style="margin-bottom: 15px; color: var(--primary-color);">Informações sobre Amputação</h4>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="amputation-type">Tipo de Amputação</label>
-                                <select id="amputation-type" class="form-control">
-                                    <option value="">Selecione</option>
-                                    <option value="superior_braco">Superior - Braço</option>
-                                    <option value="superior_antebraco">Superior - Antebraço</option>
-                                    <option value="inferior_coxa">Inferior - Coxa</option>
-                                    <option value="inferior_perna">Inferior - Perna</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="amputation-side">Lado da Amputação</label>
-                                <select id="amputation-side" class="form-control">
-                                    <option value="">Selecione</option>
-                                    <option value="direita">Direita</option>
-                                    <option value="esquerda">Esquerda</option>
-                                    <option value="bilateral">Bilateral</option>
-                                </select>
-                            </div>
+                            <label for="circ-arm">Braço</label>
+                            <input type="number" id="circ-arm" class="form-control" step="0.1">
                         </div>
                     </div>
                 </div>
@@ -1405,56 +1354,31 @@
                     <div class="adipometer-grid">
                         <div class="adipometer-input">
                             <label>Tríceps:</label>
-                            <input type="number" id="adip-triceps" class="form-control" min="0" max="50" step="0.1">
+                            <input type="number" id="adip-triceps" class="form-control" step="0.1" min="0" max="50">
                         </div>
                         <div class="adipometer-input">
                             <label>Subescapular:</label>
-                            <input type="number" id="adip-subescapular" class="form-control" min="0" max="50" step="0.1">
+                            <input type="number" id="adip-subescapular" class="form-control" step="0.1" min="0" max="50">
                         </div>
                         <div class="adipometer-input">
                             <label>Abdômen:</label>
-                            <input type="number" id="adip-abdomen" class="form-control" min="0" max="50" step="0.1">
+                            <input type="number" id="adip-abdomen" class="form-control" step="0.1" min="0" max="50">
                         </div>
                         <div class="adipometer-input">
                             <label>Coxa:</label>
-                            <input type="number" id="adip-coxa" class="form-control" min="0" max="50" step="0.1">
+                            <input type="number" id="adip-coxa" class="form-control" step="0.1" min="0" max="50">
                         </div>
                         <div class="adipometer-input">
                             <label>Suprailíaca:</label>
-                            <input type="number" id="adip-suprailíaca" class="form-control" min="0" max="50" step="0.1">
+                            <input type="number" id="adip-suprailíaca" class="form-control" step="0.1" min="0" max="50">
                         </div>
                         <div class="adipometer-input">
                             <label>Peitoral:</label>
-                            <input type="number" id="adip-peitoral" class="form-control" min="0" max="50" step="0.1">
+                            <input type="number" id="adip-peitoral" class="form-control" step="0.1" min="0" max="50">
                         </div>
                         <div class="adipometer-input">
                             <label>Axilar Média:</label>
-                            <input type="number" id="adip-axilar" class="form-control" min="0" max="50" step="0.1">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="tab-content" id="tab-circumferences">
-                    <h4 style="margin-bottom: 20px; color: var(--primary-color);">Circunferências (cm)</h4>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="circ-waist">Cintura</label>
-                            <input type="number" id="circ-waist" class="form-control" min="30" max="200" step="0.1">
-                        </div>
-                        <div class="form-group">
-                            <label for="circ-abdomen">Abdominal</label>
-                            <input type="number" id="circ-abdomen" class="form-control" min="30" max="200" step="0.1">
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="circ-hip">Quadril</label>
-                            <input type="number" id="circ-hip" class="form-control" min="30" max="200" step="0.1">
-                        </div>
-                        <div class="form-group">
-                            <label for="circ-arm">Braço</label>
-                            <input type="number" id="circ-arm" class="form-control" min="10" max="100" step="0.1">
+                            <input type="number" id="adip-axilar" class="form-control" step="0.1" min="0" max="50">
                         </div>
                     </div>
                 </div>
@@ -1462,35 +1386,23 @@
                 <div class="tab-content" id="tab-results">
                     <div style="padding: 20px; background-color: #f8f9fa; border-radius: var(--border-radius); margin-bottom: 20px;">
                         <h4 style="color: var(--primary-color); margin-bottom: 15px;">Resultados Calculados</h4>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
-                            <div>
-                                <strong>IMC:</strong>
-                                <span id="result-imc" style="font-weight: bold; margin-left: 10px;">-</span>
-                                <span id="result-imc-class" class="imc-indicator">-</span>
-                            </div>
-                            <div>
-                                <strong>Relação C/Q:</strong>
-                                <span id="result-waist-hip" style="font-weight: bold; margin-left: 10px;">-</span>
-                            </div>
-                            <div>
-                                <strong>% Gordura:</strong>
-                                <span id="result-fat-percent" style="font-weight: bold; margin-left: 10px;">-</span>
-                            </div>
+                        <div id="assessment-results">
+                            <!-- Preenchido por JavaScript -->
                         </div>
                     </div>
                     
-                    <div id="results-message"></div>
+                    <div id="assessment-message"></div>
                     
                     <div class="form-group">
-                        <label for="assessment-notes">Observações</label>
+                        <label for="assessment-notes">Observações e Recomendações</label>
                         <textarea id="assessment-notes" class="form-control" rows="4" placeholder="Observações sobre a avaliação..."></textarea>
                     </div>
                 </div>
                 
-                <div class="form-group" style="margin-top: 25px; display: flex; justify-content: space-between;">
-                    <button type="button" class="btn btn-secondary" id="prev-tab">← Anterior</button>
+                <div style="margin-top: 25px; display: flex; justify-content: space-between;">
+                    <button type="button" class="btn btn-secondary" id="prev-tab-btn">← Anterior</button>
                     <div style="display: flex; gap: 10px;">
-                        <button type="button" class="btn btn-secondary" id="next-tab">Próximo →</button>
+                        <button type="button" class="btn btn-secondary" id="next-tab-btn">Próximo →</button>
                         <button type="submit" class="btn">Salvar Avaliação</button>
                     </div>
                 </div>
@@ -1498,263 +1410,383 @@
         </div>
     </div>
     
-    <!-- Outros modais (simplificados para economizar espaço) -->
-    <div id="add-food-modal" class="modal">
-        <!-- Conteúdo similar ao anterior -->
+    <!-- Modal Novo Cardápio -->
+    <div id="new-menu-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="app.closeModal('new-menu-modal')">&times;</span>
+            <div class="modal-header">
+                <h3>Criar Novo Cardápio</h3>
+            </div>
+            <form id="new-menu-form" onsubmit="app.saveMenu(event)">
+                <div class="tabs">
+                    <button type="button" class="tab active" data-tab="menu-info">Informações</button>
+                    <button type="button" class="tab" data-tab="menu-meals">Refeições</button>
+                    <button type="button" class="tab" data-tab="menu-adaptations">Adaptações</button>
+                </div>
+                
+                <div class="tab-content active" id="tab-menu-info">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="menu-patient">Paciente *</label>
+                            <select id="menu-patient" class="form-control" required>
+                                <option value="">Selecione um paciente</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="menu-name">Nome do Cardápio *</label>
+                            <input type="text" id="menu-name" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="menu-days">Duração (dias) *</label>
+                            <input type="number" id="menu-days" class="form-control" min="1" max="30" value="7" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="menu-calories">Calorias Diárias *</label>
+                            <input type="number" id="menu-calories" class="form-control" min="800" max="5000" value="1800" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="menu-objective">Objetivo do Cardápio</label>
+                        <select id="menu-objective" class="form-control">
+                            <option value="emagrecimento">Emagrecimento</option>
+                            <option value="hipertrofia">Hipertrofia</option>
+                            <option value="saude">Saúde</option>
+                            <option value="controle_glicemico">Controle Glicêmico</option>
+                            <option value="controle_pressao">Controle Pressão</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="menu-description">Descrição</label>
+                        <textarea id="menu-description" class="form-control" rows="3" placeholder="Descreva o objetivo deste cardápio..."></textarea>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="tab-menu-meals">
+                    <div class="diet-editor">
+                        <div id="meal-times-container">
+                            <!-- Refeições serão adicionadas aqui -->
+                        </div>
+                        <button type="button" class="btn btn-secondary add-meal-time-btn" onclick="app.addMealTime()">
+                            <i class="fas fa-plus"></i> Adicionar Refeição
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="tab-menu-adaptations">
+                    <div class="form-group">
+                        <label>Adaptações para Condições Específicas</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="adaptations" value="low_sodium"> Baixo Sódio
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="adaptations" value="low_sugar"> Baixo Açúcar
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="adaptations" value="low_fat"> Baixa Gordura
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="adaptations" value="high_fiber"> Alto Teor de Fibras
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="adaptations" value="gluten_free"> Sem Glúten
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" name="adaptations" value="lactose_free"> Sem Lactose
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="menu-substitutions">Substituições Sugeridas</label>
+                        <textarea id="menu-substitutions" class="form-control" rows="4" placeholder="Liste possíveis substituições para este cardápio..."></textarea>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 25px; display: flex; gap: 10px;">
+                    <button type="submit" class="btn">Salvar Cardápio</button>
+                    <button type="button" class="btn btn-secondary" onclick="app.closeModal('new-menu-modal')">Cancelar</button>
+                </div>
+            </form>
+        </div>
     </div>
     
-    <div id="add-client-modal" class="modal">
-        <!-- Conteúdo similar ao anterior -->
+    <!-- Modal Visualizar Paciente -->
+    <div id="view-patient-modal" class="modal">
+        <div class="modal-content modal-lg">
+            <span class="close-modal" onclick="app.closeModal('view-patient-modal')">&times;</span>
+            <div class="modal-header">
+                <h3 id="view-patient-title">Detalhes do Paciente</h3>
+            </div>
+            <div id="view-patient-content" style="padding: 20px;">
+                <!-- Preenchido por JavaScript -->
+            </div>
+        </div>
     </div>
 
     <script>
         // ============================================
-        // MAROCA NUTRITION - SISTEMA AVANÇADO
+        // NUTRISYSTEM PRO - SISTEMA COMPLETO
         // ============================================
         
-        // ===== BANCO DE DADOS AVANÇADO =====
-        class AdvancedMarocaDatabase {
+        class NutriSystem {
             constructor() {
                 this.initDatabase();
+                this.initApp();
             }
             
             initDatabase() {
-                if (!localStorage.getItem('maroca_advanced_db')) {
-                    console.log('Inicializando banco de dados avançado...');
+                // Inicializar dados no localStorage se não existirem
+                if (!localStorage.getItem('nutrisystem_initialized')) {
+                    const initialData = {
+                        patients: [
+                            {
+                                id: 1,
+                                name: "Ana Silva Costa",
+                                email: "ana.silva@email.com",
+                                phone: "(11) 98765-4321",
+                                birthdate: "1990-05-15",
+                                gender: "F",
+                                patientType: "normal",
+                                conditions: ["diabetes", "hipertensao"],
+                                objective: "emagrecimento",
+                                notes: "Paciente com histórico familiar de diabetes",
+                                status: "active",
+                                createdAt: new Date().toISOString()
+                            },
+                            {
+                                id: 2,
+                                name: "Carlos Santos Almeida",
+                                email: "carlos.s@email.com",
+                                phone: "(11) 91234-5678",
+                                birthdate: "1985-08-22",
+                                gender: "M",
+                                patientType: "normal",
+                                conditions: ["colesterol"],
+                                objective: "hipertrofia",
+                                notes: "Pratica musculação 4x por semana",
+                                status: "active",
+                                createdAt: new Date().toISOString()
+                            }
+                        ],
+                        assessments: [],
+                        menus: [],
+                        foods: this.getTACOFoods(),
+                        guidelines: this.getNutritionalGuidelines(),
+                        substitutions: this.getFoodSubstitutions()
+                    };
                     
-                    // Tabela TACO (exemplos)
-                    const tacoFoods = [
-                        {
-                            id: 1,
-                            code: "00001",
-                            name: "Arroz branco, cozido",
-                            category: "Cereais e derivados",
-                            energy_kcal: 128,
-                            energy_kj: 536,
-                            protein_g: 2.5,
-                            lipid_g: 0.2,
-                            cholesterol_mg: 0,
-                            carbohydrate_g: 28.1,
-                            fiber_g: 0.6,
-                            calcium_mg: 3,
-                            iron_mg: 0.2,
-                            sodium_mg: 1,
-                            home_measure: "4 colheres de sopa cheias",
-                            home_weight_g: 100
-                        },
-                        {
-                            id: 2,
-                            code: "00002",
-                            name: "Feijão carioca, cozido",
-                            category: "Leguminosas",
-                            energy_kcal: 76,
-                            energy_kj: 318,
-                            protein_g: 4.8,
-                            lipid_g: 0.5,
-                            cholesterol_mg: 0,
-                            carbohydrate_g: 13.6,
-                            fiber_g: 5.1,
-                            calcium_mg: 29,
-                            iron_mg: 1.2,
-                            sodium_mg: 1,
-                            home_measure: "1 concha média",
-                            home_weight_g: 100
-                        },
-                        {
-                            id: 3,
-                            code: "00003",
-                            name: "Frango, peito, grelhado",
-                            category: "Carnes e derivados",
-                            energy_kcal: 159,
-                            energy_kj: 665,
-                            protein_g: 32.0,
-                            lipid_g: 2.5,
-                            cholesterol_mg: 65,
-                            carbohydrate_g: 0,
-                            fiber_g: 0,
-                            calcium_mg: 4,
-                            iron_mg: 0.5,
-                            sodium_mg: 45,
-                            home_measure: "1 filé médio",
-                            home_weight_g: 100
-                        }
-                    ];
-                    
-                    // Orientações nutricionais por doença
-                    const nutritionalGuidelines = [
-                        {
-                            id: 1,
-                            disease: "diabetes",
-                            title: "Diabetes Mellitus",
-                            icon: "fas fa-syringe",
-                            recommendations: [
-                                "Controle rigoroso da ingestão de carboidratos",
-                                "Prefira carboidratos complexos (integrais)",
-                                "Evite açúcares simples e refinados",
-                                "Fracione as refeições (5-6x ao dia)",
-                                "Atenção ao índice glicêmico dos alimentos"
-                            ],
-                            avoid: [
-                                "Açúcar refinado e mel",
-                                "Refrigerantes e sucos industrializados",
-                                "Doces e sobremesas açucaradas",
-                                "Farinhas refinadas",
-                                "Alimentos ultraprocessados"
-                            ]
-                        },
-                        {
-                            id: 2,
-                            disease: "hipertensao",
-                            title: "Hipertensão Arterial",
-                            icon: "fas fa-heartbeat",
-                            recommendations: [
-                                "Reduza o consumo de sal (máx. 5g/dia)",
-                                "Evite alimentos industrializados",
-                                "Aumente o consumo de potássio (frutas)",
-                                "Controle do peso corporal",
-                                "Reduza o consumo de álcool"
-                            ],
-                            avoid: [
-                                "Sal de cozinha",
-                                "Temperos industrializados",
-                                "Enlatados e conservas",
-                                "Embutidos e frios",
-                                "Fast food"
-                            ]
-                        },
-                        {
-                            id: 3,
-                            disease: "colesterol",
-                            title: "Colesterol Alto",
-                            icon: "fas fa-heart",
-                            recommendations: [
-                                "Aumente o consumo de fibras solúveis",
-                                "Prefira gorduras insaturadas",
-                                "Consuma peixes 2-3x por semana",
-                                "Inclua alimentos funcionais (aveia)",
-                                "Pratique atividade física regular"
-                            ],
-                            avoid: [
-                                "Gorduras trans",
-                                "Carnes gordas",
-                                "Leite integral",
-                                "Frituras",
-                                "Industrializados"
-                            ]
-                        }
-                    ];
-                    
-                    // Substituições alimentares
-                    const foodSubstitutions = [
-                        {
-                            id: 1,
-                            original: "Arroz branco",
-                            substitution: "Arroz integral, quinoa, aveia",
-                            reason: "Mais fibras, menor IG",
-                            category: "Cereais"
-                        },
-                        {
-                            id: 2,
-                            original: "Pão francês",
-                            substitution: "Pão integral, pão de centeio",
-                            reason: "Mais fibras e nutrientes",
-                            category: "Pães"
-                        },
-                        {
-                            id: 3,
-                            original: "Leite integral",
-                            substitution: "Leite desnatado, leite vegetal",
-                            reason: "Menos gordura saturada",
-                            category: "Laticínios"
-                        },
-                        {
-                            id: 4,
-                            original: "Açúcar refinado",
-                            substitution: "Adoçante, estévia, frutas",
-                            reason: "Menos calorias vazias",
-                            category: "Adoçantes"
-                        },
-                        {
-                            id: 5,
-                            original: "Sal refinado",
-                            substitution: "Ervas, limão, alho, cebola",
-                            reason: "Menos sódio",
-                            category: "Temperos"
-                        }
-                    ];
-                    
-                    localStorage.setItem('maroca_taco_foods', JSON.stringify(tacoFoods));
-                    localStorage.setItem('maroca_guidelines', JSON.stringify(nutritionalGuidelines));
-                    localStorage.setItem('maroca_substitutions', JSON.stringify(foodSubstitutions));
-                    localStorage.setItem('maroca_advanced_db', 'true');
-                    
-                    console.log('Banco de dados avançado inicializado!');
+                    localStorage.setItem('nutrisystem_data', JSON.stringify(initialData));
+                    localStorage.setItem('nutrisystem_initialized', 'true');
                 }
             }
             
-            // Métodos CRUD básicos
-            getAll(table) {
-                const data = localStorage.getItem(`maroca_${table}`);
-                return data ? JSON.parse(data) : [];
+            getTACOFoods() {
+                return [
+                    {
+                        id: 1,
+                        name: "Arroz branco, cozido",
+                        category: "Cereais e derivados",
+                        calories: 128,
+                        protein: 2.5,
+                        carbs: 28.1,
+                        fat: 0.2,
+                        fiber: 0.6,
+                        sodium: 1,
+                        homeMeasure: "4 colheres de sopa (100g)",
+                        homeMeasureType: "colher"
+                    },
+                    {
+                        id: 2,
+                        name: "Feijão carioca, cozido",
+                        category: "Leguminosas",
+                        calories: 76,
+                        protein: 4.8,
+                        carbs: 13.6,
+                        fat: 0.5,
+                        fiber: 5.1,
+                        sodium: 1,
+                        homeMeasure: "1 concha média (100g)",
+                        homeMeasureType: "concha"
+                    },
+                    {
+                        id: 3,
+                        name: "Frango, peito, grelhado",
+                        category: "Carnes e derivados",
+                        calories: 159,
+                        protein: 32.0,
+                        carbs: 0,
+                        fat: 2.5,
+                        fiber: 0,
+                        sodium: 45,
+                        homeMeasure: "1 filé médio (100g)",
+                        homeMeasureType: "fatia"
+                    },
+                    {
+                        id: 4,
+                        name: "Banana prata",
+                        category: "Frutas",
+                        calories: 89,
+                        protein: 1.1,
+                        carbs: 22.8,
+                        fat: 0.3,
+                        fiber: 2.6,
+                        sodium: 0,
+                        homeMeasure: "1 unidade média (50g)",
+                        homeMeasureType: "unidade"
+                    },
+                    {
+                        id: 5,
+                        name: "Leite integral",
+                        category: "Leite e derivados",
+                        calories: 61,
+                        protein: 3.1,
+                        carbs: 4.8,
+                        fat: 3.3,
+                        fiber: 0,
+                        sodium: 47,
+                        homeMeasure: "1 copo (200ml)",
+                        homeMeasureType: "copo"
+                    }
+                ];
             }
             
-            create(table, data) {
-                const items = this.getAll(table);
-                const newId = items.length > 0 ? Math.max(...items.map(i => i.id)) + 1 : 1;
-                
-                const newItem = {
-                    id: newId,
-                    created_at: new Date().toISOString().split('T')[0],
-                    ...data
+            getNutritionalGuidelines() {
+                return [
+                    {
+                        id: 1,
+                        disease: "diabetes",
+                        title: "Diabetes Mellitus",
+                        icon: "fas fa-syringe",
+                        recommendations: [
+                            "Controle rigoroso da ingestão de carboidratos",
+                            "Prefira carboidratos complexos (integrais)",
+                            "Evite açúcares simples e refinados",
+                            "Fracione as refeições (5-6x ao dia)",
+                            "Atenção ao índice glicêmico dos alimentos",
+                            "Consuma fibras em todas as refeições"
+                        ],
+                        avoid: [
+                            "Açúcar refinado e mel",
+                            "Refrigerantes e sucos industrializados",
+                            "Doces e sobremesas açucaradas",
+                            "Farinhas refinadas",
+                            "Alimentos ultraprocessados",
+                            "Frutas em calda"
+                        ]
+                    },
+                    {
+                        id: 2,
+                        disease: "hipertensao",
+                        title: "Hipertensão Arterial",
+                        icon: "fas fa-heartbeat",
+                        recommendations: [
+                            "Reduza o consumo de sal (máx. 5g/dia)",
+                            "Evite alimentos industrializados",
+                            "Aumente o consumo de potássio (frutas)",
+                            "Controle do peso corporal",
+                            "Reduza o consumo de álcool",
+                            "Pratique atividade física regular"
+                        ],
+                        avoid: [
+                            "Sal de cozinha",
+                            "Temperos industrializados",
+                            "Enlatados e conservas",
+                            "Embutidos e frios",
+                            "Fast food",
+                            "Molhos prontos"
+                        ]
+                    },
+                    {
+                        id: 3,
+                        disease: "colesterol",
+                        title: "Colesterol Alto",
+                        icon: "fas fa-heart",
+                        recommendations: [
+                            "Aumente o consumo de fibras solúveis",
+                            "Prefira gorduras insaturadas",
+                            "Consuma peixes 2-3x por semana",
+                            "Inclua alimentos funcionais (aveia)",
+                            "Pratique atividade física regular",
+                            "Mantenha peso adequado"
+                        ],
+                        avoid: [
+                            "Gorduras trans",
+                            "Carnes gordas",
+                            "Leite integral",
+                            "Frituras",
+                            "Industrializados",
+                            "Queijos amarelos"
+                        ]
+                    }
+                ];
+            }
+            
+            getFoodSubstitutions() {
+                return [
+                    {
+                        id: 1,
+                        original: "Arroz branco",
+                        substitution: "Arroz integral, quinoa, aveia",
+                        reason: "Mais fibras, menor índice glicêmico",
+                        category: "Cereais"
+                    },
+                    {
+                        id: 2,
+                        original: "Pão francês",
+                        substitution: "Pão integral, pão de centeio",
+                        reason: "Mais fibras e nutrientes",
+                        category: "Pães"
+                    },
+                    {
+                        id: 3,
+                        original: "Leite integral",
+                        substitution: "Leite desnatado, leite vegetal",
+                        reason: "Menos gordura saturada",
+                        category: "Laticínios"
+                    },
+                    {
+                        id: 4,
+                        original: "Açúcar refinado",
+                        substitution: "Adoçante, estévia, frutas",
+                        reason: "Menos calorias vazias",
+                        category: "Adoçantes"
+                    },
+                    {
+                        id: 5,
+                        original: "Sal refinado",
+                        substitution: "Ervas, limão, alho, cebola",
+                        reason: "Menos sódio",
+                        category: "Temperos"
+                    }
+                ];
+            }
+            
+            getData() {
+                const data = localStorage.getItem('nutrisystem_data');
+                return data ? JSON.parse(data) : {
+                    patients: [],
+                    assessments: [],
+                    menus: [],
+                    foods: [],
+                    guidelines: [],
+                    substitutions: []
                 };
-                
-                items.push(newItem);
-                localStorage.setItem(`maroca_${table}`, JSON.stringify(items));
-                return newItem;
             }
             
-            update(table, id, data) {
-                const items = this.getAll(table);
-                const index = items.findIndex(item => item.id === parseInt(id));
-                
-                if (index === -1) return null;
-                
-                items[index] = { 
-                    ...items[index], 
-                    ...data,
-                    updated_at: new Date().toISOString().split('T')[0]
-                };
-                localStorage.setItem(`maroca_${table}`, JSON.stringify(items));
-                return items[index];
-            }
-            
-            delete(table, id) {
-                const items = this.getAll(table);
-                const filteredItems = items.filter(item => item.id !== parseInt(id));
-                localStorage.setItem(`maroca_${table}`, JSON.stringify(filteredItems));
-                return true;
-            }
-            
-            // Métodos específicos avançados
-            getDashboardStats() {
-                const menus = this.getAll('menus');
-                const clients = this.getAll('clients');
-                const foods = this.getAll('foods');
-                
-                return {
-                    total_menus: menus.length,
-                    total_clients: clients.length,
-                    total_foods: foods.length,
-                    active_clients: clients.filter(c => c.status === 'ativo').length,
-                    recent_menus: menus.slice(-3).reverse()
-                };
+            saveData(data) {
+                localStorage.setItem('nutrisystem_data', JSON.stringify(data));
             }
             
             calculateIMC(weight, height) {
                 const heightM = height / 100;
                 const imc = (weight / (heightM * heightM)).toFixed(1);
                 
-                // Classificação do IMC
                 let classification = "";
                 let colorClass = "";
                 
@@ -1782,216 +1814,139 @@
             }
             
             calculateBodyFat(adipometerData, gender, age) {
-                // Cálculo simplificado de % de gordura
-                let fatPercentage = 0;
-                if (adipometerData && adipometerData.triceps && adipometerData.abdominal) {
-                    fatPercentage = (adipometerData.triceps + adipometerData.abdominal + adipometerData.suprailíaca) * 0.5;
-                }
-                return fatPercentage.toFixed(1);
-            }
-            
-            getNutritionalGuidelines(disease) {
-                const guidelines = this.getAll('guidelines');
-                if (disease) {
-                    return guidelines.filter(g => g.disease === disease);
-                }
-                return guidelines;
-            }
-            
-            getFoodSubstitutions(category) {
-                const substitutions = this.getAll('substitutions');
-                if (category) {
-                    return substitutions.filter(s => s.category === category);
-                }
-                return substitutions;
-            }
-            
-            getTACOFoods(searchTerm = "") {
-                const foods = this.getAll('taco_foods');
-                if (!searchTerm) return foods;
+                // Cálculo simplificado usando protocolo de Jackson & Pollock
+                let sum = 0;
+                if (adipometerData.triceps) sum += parseFloat(adipometerData.triceps);
+                if (adipometerData.abdominal) sum += parseFloat(adipometerData.abdominal);
+                if (adipometerData.suprailíaca) sum += parseFloat(adipometerData.suprailíaca);
                 
-                return foods.filter(food => 
-                    food.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                    food.category.toLowerCase().includes(searchTerm.toLowerCase())
-                );
+                if (sum === 0) return null;
+                
+                // Fórmula simplificada (homem, 30 anos como exemplo)
+                let fatPercentage = (sum * 0.29288) - 0.0005 * sum * sum + 0.15845 * age - 5.76377;
+                return Math.max(5, Math.min(50, fatPercentage)).toFixed(1);
             }
             
-            // Sistema de versões do cliente
-            addClientVersion(clientId, assessmentData) {
-                const versions = this.getAll('client_versions') || [];
-                const newVersion = {
-                    id: versions.length + 1,
-                    client_id: parseInt(clientId),
-                    date: new Date().toISOString().split('T')[0],
-                    data: assessmentData,
-                    created_at: new Date().toISOString()
-                };
-                
-                versions.push(newVersion);
-                localStorage.setItem('maroca_client_versions', JSON.stringify(versions));
-                return newVersion;
+            calculateWaistHipRatio(waist, hip) {
+                if (!waist || !hip) return null;
+                return (waist / hip).toFixed(2);
             }
             
-            getClientVersions(clientId) {
-                const versions = this.getAll('client_versions') || [];
-                return versions.filter(v => v.client_id === parseInt(clientId)).sort((a, b) => 
-                    new Date(b.date) - new Date(a.date)
-                );
-            }
-            
-            // Avaliação com mensagens motivacionais
-            getAssessmentMessage(assessmentData, previousAssessment = null) {
-                const { imc, classification } = this.calculateIMC(assessmentData.weight, assessmentData.height);
+            getAssessmentMessage(currentAssessment, previousAssessment) {
+                const currentIMC = this.calculateIMC(currentAssessment.weight, currentAssessment.height);
                 
-                let message = "";
-                let messageType = "";
-                
-                if (previousAssessment) {
-                    const previousIMC = this.calculateIMC(previousAssessment.data.weight, previousAssessment.data.height).imc;
-                    const imcChange = parseFloat(imc) - parseFloat(previousIMC);
-                    
-                    if (imcChange < -0.5) {
-                        message = "🎉 Parabéns! Você está evoluindo muito bem! Continue assim!";
-                        messageType = "success";
-                    } else if (imcChange < 0) {
-                        message = "👍 Bom trabalho! Continue se esforçando!";
-                        messageType = "success";
-                    } else if (imcChange > 0.5) {
-                        message = "⚠️ Vamos ajustar algumas coisas! Podemos melhorar juntos!";
-                        messageType = "improve";
+                if (!previousAssessment) {
+                    if (currentIMC.classification === "Eutrófico") {
+                        return {
+                            message: "🎉 Parabéns! Seu peso está dentro da faixa saudável!",
+                            type: "success"
+                        };
                     } else {
-                        message = "📊 Mantenha o foco! Pequenos ajustes podem fazer grande diferença.";
-                        messageType = "info";
+                        return {
+                            message: "💪 Vamos trabalhar juntos para alcançar seus objetivos!",
+                            type: "improve"
+                        };
                     }
+                }
+                
+                const previousIMC = this.calculateIMC(previousAssessment.weight, previousAssessment.height);
+                const imcChange = parseFloat(currentIMC.imc) - parseFloat(previousIMC.imc);
+                
+                if (imcChange < -0.5) {
+                    return {
+                        message: "🎉 Excelente progresso! Continue assim!",
+                        type: "success"
+                    };
+                } else if (imcChange < 0) {
+                    return {
+                        message: "👍 Bom trabalho! Mantenha o foco!",
+                        type: "success"
+                    };
+                } else if (imcChange > 0.5) {
+                    return {
+                        message: "⚠️ Vamos ajustar a estratégia! Podemos melhorar!",
+                        type: "improve"
+                    };
                 } else {
-                    if (classification === "Eutrófico") {
-                        message = "✅ Excelente! Seu peso está dentro da faixa saudável!";
-                        messageType = "success";
-                    } else {
-                        message = "💪 Vamos trabalhar juntos para alcançar seus objetivos!";
-                        messageType = "improve";
-                    }
+                    return {
+                        message: "📊 Estabilidade! Pequenos ajustes podem ajudar.",
+                        type: "info"
+                    };
                 }
-                
-                return { message, messageType };
-            }
-        }
-        
-        // ===== APLICAÇÃO PRINCIPAL AVANÇADA =====
-        class AdvancedMarocaApp {
-            constructor() {
-                this.db = new AdvancedMarocaDatabase();
-                this.currentPage = 'dashboard';
-                this.currentTab = 'basic';
-                this.init();
             }
             
-            init() {
-                console.log('Iniciando Maroca Nutrition Avançado...');
-                
+            initApp() {
                 this.setupNavigation();
-                this.setupEventListeners();
                 this.setupTabs();
-                this.setupDietEditor();
-                
+                this.setupModalEvents();
                 this.loadDashboard();
-                
-                console.log('Sistema avançado pronto!');
             }
             
-            // ===== NAVEGAÇÃO =====
             setupNavigation() {
                 const navLinks = document.querySelectorAll('.nav-link');
-                
                 navLinks.forEach(link => {
                     link.addEventListener('click', (e) => {
                         e.preventDefault();
                         
+                        // Atualizar navegação
                         navLinks.forEach(l => l.classList.remove('active'));
                         link.classList.add('active');
                         
-                        document.querySelectorAll('.page').forEach(page => {
-                            page.style.display = 'none';
-                        });
-                        
-                        this.currentPage = link.dataset.page;
-                        const pageId = `${this.currentPage}-page`;
-                        document.getElementById(pageId).style.display = 'block';
-                        
-                        this.loadPageContent(this.currentPage);
+                        // Carregar página
+                        const page = link.dataset.page;
+                        this.loadPage(page);
                     });
                 });
             }
             
-            loadPageContent(page) {
-                switch(page) {
-                    case 'dashboard':
-                        this.loadDashboard();
-                        break;
-                    case 'menus':
-                        this.loadMenusPage();
-                        break;
-                    case 'clients':
-                        this.loadClientsPage();
-                        break;
-                    case 'foods':
-                        this.loadFoodsPage();
-                        break;
-                    case 'taco':
-                        this.loadTacoPage();
-                        break;
-                    case 'substitutions':
-                        this.loadSubstitutionsPage();
-                        break;
-                    case 'guidelines':
-                        this.loadGuidelinesPage();
-                        break;
-                    case 'export':
-                        this.loadExportPage();
-                        break;
-                }
-            }
-            
-            // ===== TABS =====
             setupTabs() {
-                // Tabs nos modais
+                // Tabs em modais
                 document.addEventListener('click', (e) => {
                     if (e.target.classList.contains('tab')) {
                         const tabId = e.target.dataset.tab;
                         const modal = e.target.closest('.modal-content');
                         
                         if (modal) {
-                            // Atualizar tab ativa
+                            // Atualizar tabs
                             modal.querySelectorAll('.tab').forEach(tab => {
                                 tab.classList.remove('active');
                             });
                             e.target.classList.add('active');
                             
-                            // Mostrar conteúdo da tab
+                            // Mostrar conteúdo
                             modal.querySelectorAll('.tab-content').forEach(content => {
                                 content.classList.remove('active');
                             });
                             
-                            const tabContent = modal.querySelector(`#tab-${tabId}`);
-                            if (tabContent) {
-                                tabContent.classList.add('active');
-                            }
+                            const content = modal.querySelector(`#tab-${tabId}`);
+                            if (content) content.classList.add('active');
                         }
                     }
                 });
                 
                 // Navegação entre tabs na avaliação
-                document.getElementById('next-tab')?.addEventListener('click', () => {
-                    this.nextAssessmentTab();
+                document.getElementById('next-tab-btn')?.addEventListener('click', () => {
+                    this.nextTab();
                 });
                 
-                document.getElementById('prev-tab')?.addEventListener('click', () => {
-                    this.prevAssessmentTab();
+                document.getElementById('prev-tab-btn')?.addEventListener('click', () => {
+                    this.prevTab();
                 });
             }
             
-            nextAssessmentTab() {
-                const modal = document.getElementById('assessment-modal');
+            setupModalEvents() {
+                // Fechar modais ao clicar fora
+                document.querySelectorAll('.modal').forEach(modal => {
+                    modal.addEventListener('click', (e) => {
+                        if (e.target === modal) {
+                            modal.style.display = 'none';
+                        }
+                    });
+                });
+            }
+            
+            nextTab() {
+                const modal = document.getElementById('new-assessment-modal');
                 const tabs = Array.from(modal.querySelectorAll('.tab'));
                 const currentIndex = tabs.findIndex(tab => tab.classList.contains('active'));
                 
@@ -2006,15 +1961,15 @@
                     const nextTabId = tabs[currentIndex + 1].dataset.tab;
                     modal.querySelector(`#tab-${nextTabId}`).classList.add('active');
                     
-                    // Se for a última tab, calcular resultados
+                    // Se for a tab de resultados, calcular
                     if (nextTabId === 'results') {
                         this.calculateAssessmentResults();
                     }
                 }
             }
             
-            prevAssessmentTab() {
-                const modal = document.getElementById('assessment-modal');
+            prevTab() {
+                const modal = document.getElementById('new-assessment-modal');
                 const tabs = Array.from(modal.querySelectorAll('.tab'));
                 const currentIndex = tabs.findIndex(tab => tab.classList.contains('active'));
                 
@@ -2031,12 +1986,643 @@
                 }
             }
             
-            // ===== EDITOR DE DIETA =====
-            setupDietEditor() {
-                // Adicionar nova refeição
-                document.getElementById('add-meal-time')?.addEventListener('click', () => {
+            loadPage(page) {
+                // Esconder todas as páginas
+                document.querySelectorAll('.page').forEach(p => {
+                    p.style.display = 'none';
+                });
+                
+                // Mostrar página solicitada
+                document.getElementById(`${page}-page`).style.display = 'block';
+                
+                // Carregar conteúdo específico
+                switch(page) {
+                    case 'dashboard':
+                        this.loadDashboard();
+                        break;
+                    case 'patients':
+                        this.loadPatientsPage();
+                        break;
+                    case 'menus':
+                        this.loadMenusPage();
+                        break;
+                    case 'assessments':
+                        this.loadAssessmentsPage();
+                        break;
+                    case 'foods':
+                        this.loadFoodsPage();
+                        break;
+                    case 'guidelines':
+                        this.loadGuidelinesPage();
+                        break;
+                    case 'substitutions':
+                        this.loadSubstitutionsPage();
+                        break;
+                    case 'reports':
+                        this.loadReportsPage();
+                        break;
+                }
+            }
+            
+            loadDashboard() {
+                const data = this.getData();
+                
+                // Atualizar estatísticas
+                document.getElementById('total-patients').textContent = data.patients.filter(p => p.status === 'active').length;
+                document.getElementById('total-menus').textContent = data.menus.length;
+                document.getElementById('total-assessments').textContent = 
+                    data.assessments.filter(a => {
+                        const today = new Date().toISOString().split('T')[0];
+                        return a.date === today;
+                    }).length;
+                
+                // Carregar pacientes recentes
+                const recentPatients = data.patients
+                    .filter(p => p.status === 'active')
+                    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                    .slice(0, 5);
+                
+                let html = `
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Telefone</th>
+                                <th>Idade</th>
+                                <th>Condições</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+                
+                recentPatients.forEach(patient => {
+                    const age = this.calculateAge(patient.birthdate);
+                    const conditions = patient.conditions ? patient.conditions.map(c => {
+                        const names = {
+                            diabetes: 'Diabetes',
+                            hipertensao: 'Hipertensão',
+                            colesterol: 'Colesterol',
+                            triglicerideos: 'Triglicerídeos'
+                        };
+                        return `<span class="badge badge-warning">${names[c] || c}</span>`;
+                    }).join(' ') : 'Nenhuma';
+                    
+                    html += `
+                        <tr>
+                            <td><strong>${patient.name}</strong></td>
+                            <td>${patient.phone}</td>
+                            <td>${age} anos</td>
+                            <td>${conditions}</td>
+                            <td>
+                                <button class="btn btn-small" onclick="app.viewPatient(${patient.id})">Ver</button>
+                                <button class="btn btn-small btn-accent" onclick="app.openAssessmentForPatient(${patient.id})">Avaliar</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                html += `</tbody></table>`;
+                document.getElementById('recent-patients').innerHTML = html;
+            }
+            
+            calculateAge(birthdate) {
+                const today = new Date();
+                const birthDate = new Date(birthdate);
+                let age = today.getFullYear() - birthDate.getFullYear();
+                const monthDiff = today.getMonth() - birthDate.getMonth();
+                
+                if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+                
+                return age;
+            }
+            
+            loadPatientsPage() {
+                const data = this.getData();
+                const patients = data.patients.filter(p => p.status === 'active');
+                
+                let html = `
+                    <div class="page-title">
+                        <h2>Pacientes</h2>
+                        <div>
+                            <button class="btn" onclick="app.openModal('new-patient-modal')">
+                                <i class="fas fa-user-plus"></i> Novo Paciente
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Contato</th>
+                                    <th>Idade</th>
+                                    <th>Tipo</th>
+                                    <th>Condições</th>
+                                    <th>Objetivo</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+                
+                patients.forEach(patient => {
+                    const age = this.calculateAge(patient.birthdate);
+                    const conditions = patient.conditions ? patient.conditions.map(c => {
+                        const names = {
+                            diabetes: 'DM',
+                            hipertensao: 'HAS',
+                            colesterol: 'Col',
+                            triglicerideos: 'TG'
+                        };
+                        return `<span class="badge badge-warning">${names[c] || c}</span>`;
+                    }).join(' ') : '-';
+                    
+                    const typeNames = {
+                        normal: 'Normal',
+                        amputado: 'Amputado',
+                        acamado: 'Acamado',
+                        cadeirante: 'Cadeirante'
+                    };
+                    
+                    const objectiveNames = {
+                        emagrecimento: 'Emagrecer',
+                        hipertrofia: 'Hipertrofia',
+                        saude: 'Saúde',
+                        manutencao: 'Manutenção',
+                        performance: 'Performance'
+                    };
+                    
+                    html += `
+                        <tr>
+                            <td><strong>${patient.name}</strong></td>
+                            <td>
+                                <div>${patient.phone}</div>
+                                <small>${patient.email || ''}</small>
+                            </td>
+                            <td>${age} anos</td>
+                            <td><span class="badge badge-info">${typeNames[patient.patientType] || patient.patientType}</span></td>
+                            <td>${conditions}</td>
+                            <td><span class="badge">${objectiveNames[patient.objective] || patient.objective}</span></td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="btn btn-small" onclick="app.viewPatient(${patient.id})">Ver</button>
+                                    <button class="btn btn-small btn-accent" onclick="app.openAssessmentForPatient(${patient.id})">Avaliar</button>
+                                    <button class="btn btn-small btn-secondary" onclick="app.openMenuForPatient(${patient.id})">Cardápio</button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+                
+                html += `</tbody></table></div>`;
+                document.getElementById('patients-page').innerHTML = html;
+            }
+            
+            openModal(modalId, callback = null) {
+                const modal = document.getElementById(modalId);
+                modal.style.display = 'flex';
+                
+                // Limpar formulários
+                const form = modal.querySelector('form');
+                if (form) form.reset();
+                
+                // Configurações específicas por modal
+                switch(modalId) {
+                    case 'new-patient-modal':
+                        // Data atual para nascimento como placeholder
+                        const today = new Date().toISOString().split('T')[0];
+                        document.getElementById('patient-birthdate').max = today;
+                        break;
+                        
+                    case 'new-assessment-modal':
+                        this.populatePatientSelect('assessment-patient');
+                        document.getElementById('assessment-date').value = new Date().toISOString().split('T')[0];
+                        break;
+                        
+                    case 'new-menu-modal':
+                        this.populatePatientSelect('menu-patient');
+                        break;
+                }
+                
+                if (callback) callback();
+            }
+            
+            closeModal(modalId) {
+                document.getElementById(modalId).style.display = 'none';
+            }
+            
+            populatePatientSelect(selectId, selectedId = null) {
+                const data = this.getData();
+                const select = document.getElementById(selectId);
+                
+                if (!select) return;
+                
+                select.innerHTML = '<option value="">Selecione um paciente</option>';
+                data.patients.filter(p => p.status === 'active').forEach(patient => {
+                    const option = document.createElement('option');
+                    option.value = patient.id;
+                    option.textContent = patient.name;
+                    if (selectedId && patient.id == selectedId) {
+                        option.selected = true;
+                    }
+                    select.appendChild(option);
+                });
+            }
+            
+            savePatient(event) {
+                event.preventDefault();
+                
+                const data = this.getData();
+                const newId = data.patients.length > 0 ? Math.max(...data.patients.map(p => p.id)) + 1 : 1;
+                
+                // Coletar condições de saúde
+                const conditions = [];
+                document.querySelectorAll('input[name="conditions"]:checked').forEach(cb => {
+                    conditions.push(cb.value);
+                });
+                
+                const patient = {
+                    id: newId,
+                    name: document.getElementById('patient-name').value,
+                    email: document.getElementById('patient-email').value,
+                    phone: document.getElementById('patient-phone').value,
+                    birthdate: document.getElementById('patient-birthdate').value,
+                    gender: document.getElementById('patient-gender').value,
+                    patientType: document.getElementById('patient-type').value,
+                    conditions: conditions,
+                    objective: document.getElementById('patient-objective').value,
+                    notes: document.getElementById('patient-notes').value,
+                    status: 'active',
+                    createdAt: new Date().toISOString()
+                };
+                
+                data.patients.push(patient);
+                this.saveData(data);
+                
+                this.showMessage('success', 'Paciente cadastrado com sucesso!');
+                this.closeModal('new-patient-modal');
+                
+                // Atualizar visualização
+                if (document.getElementById('patients-page').style.display === 'block') {
+                    this.loadPatientsPage();
+                }
+                this.loadDashboard();
+            }
+            
+            viewPatient(patientId) {
+                const data = this.getData();
+                const patient = data.patients.find(p => p.id === patientId);
+                if (!patient) return;
+                
+                const age = this.calculateAge(patient.birthdate);
+                const assessments = data.assessments.filter(a => a.patientId === patientId)
+                    .sort((a, b) => new Date(b.date) - new Date(a.date));
+                
+                // Buscar cardápios do paciente
+                const patientMenus = data.menus.filter(m => m.patientId === patientId);
+                
+                let content = `
+                    <div class="patient-card">
+                        <div class="patient-card-header">
+                            <div>
+                                <h3>${patient.name}</h3>
+                                <p>${age} anos | ${patient.gender === 'M' ? 'Masculino' : 'Feminino'} | ${patient.phone}</p>
+                            </div>
+                            <div class="patient-status">
+                                <span class="status-indicator status-active"></span>
+                                <span>Ativo</span>
+                            </div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-bottom: 20px;">
+                            <div>
+                                <h4 style="color: var(--primary-color); margin-bottom: 10px;">Informações</h4>
+                                <p><strong>Email:</strong> ${patient.email || 'Não informado'}</p>
+                                <p><strong>Tipo:</strong> ${this.getPatientTypeName(patient.patientType)}</p>
+                                <p><strong>Objetivo:</strong> ${this.getObjectiveName(patient.objective)}</p>
+                                <p><strong>Cadastrado em:</strong> ${new Date(patient.createdAt).toLocaleDateString()}</p>
+                            </div>
+                            
+                            <div>
+                                <h4 style="color: var(--primary-color); margin-bottom: 10px;">Condições de Saúde</h4>
+                                <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+                                    ${patient.conditions && patient.conditions.length > 0 ? 
+                                        patient.conditions.map(c => 
+                                            `<span class="badge badge-danger">${this.getConditionName(c)}</span>`
+                                        ).join('') : 
+                                        '<span class="badge badge-success">Nenhuma condição reportada</span>'
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        
+                        ${patient.notes ? `
+                            <div style="background-color: #f8f9fa; padding: 15px; border-radius: var(--border-radius); margin-bottom: 20px;">
+                                <h4 style="color: var(--primary-color); margin-bottom: 10px;">Observações</h4>
+                                <p>${patient.notes}</p>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+                
+                // Histórico de avaliações
+                if (assessments.length > 0) {
+                    content += `
+                        <div class="patient-card">
+                            <h3 style="margin-bottom: 20px; color: var(--primary-color);">Histórico de Avaliações</h3>
+                            <div class="version-timeline">
+                    `;
+                    
+                    assessments.forEach(assessment => {
+                        const imc = this.calculateIMC(assessment.weight, assessment.height);
+                        const message = this.getAssessmentMessage(assessment, null);
+                        
+                        content += `
+                            <div class="version-item">
+                                <div class="version-date">${new Date(assessment.date).toLocaleDateString()}</div>
+                                <p><strong>Peso:</strong> ${assessment.weight} kg | <strong>Altura:</strong> ${assessment.height} cm</p>
+                                <p><strong>IMC:</strong> ${imc.imc} (<span class="imc-indicator ${imc.colorClass}">${imc.classification}</span>)</p>
+                                ${assessment.notes ? `<p><strong>Observações:</strong> ${assessment.notes}</p>` : ''}
+                                <div class="version-message message-${message.type}">
+                                    ${message.message}
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    content += `</div></div>`;
+                }
+                
+                // Cardápios do paciente
+                if (patientMenus.length > 0) {
+                    content += `
+                        <div class="patient-card">
+                            <h3 style="margin-bottom: 20px; color: var(--primary-color);">Cardápios</h3>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px;">
+                    `;
+                    
+                    patientMenus.forEach(menu => {
+                        content += `
+                            <div style="border: 1px solid #eee; border-radius: var(--border-radius); padding: 15px;">
+                                <h4 style="margin-bottom: 10px;">${menu.name}</h4>
+                                <p style="font-size: 0.9rem; color: var(--gray-color); margin-bottom: 10px;">${menu.description || ''}</p>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span>${menu.days} dias • ${menu.calories} kcal</span>
+                                    <button class="btn btn-small" onclick="app.viewMenu(${menu.id})">Ver</button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    content += `</div></div>`;
+                }
+                
+                // Botões de ação
+                content += `
+                    <div style="margin-top: 25px; display: flex; gap: 10px;">
+                        <button class="btn btn-accent" onclick="app.openAssessmentForPatient(${patient.id})">
+                            <i class="fas fa-weight"></i> Nova Avaliação
+                        </button>
+                        <button class="btn" onclick="app.openMenuForPatient(${patient.id})">
+                            <i class="fas fa-utensils"></i> Novo Cardápio
+                        </button>
+                        <button class="btn btn-secondary" onclick="app.closeModal('view-patient-modal')">
+                            Fechar
+                        </button>
+                    </div>
+                `;
+                
+                document.getElementById('view-patient-title').textContent = patient.name;
+                document.getElementById('view-patient-content').innerHTML = content;
+                this.openModal('view-patient-modal');
+            }
+            
+            getPatientTypeName(type) {
+                const names = {
+                    normal: 'Normal',
+                    amputado: 'Amputado',
+                    acamado: 'Acamado',
+                    cadeirante: 'Cadeirante'
+                };
+                return names[type] || type;
+            }
+            
+            getConditionName(condition) {
+                const names = {
+                    diabetes: 'Diabetes',
+                    hipertensao: 'Hipertensão',
+                    colesterol: 'Colesterol Alto',
+                    triglicerideos: 'Triglicerídeos Alto',
+                    figado: 'Doenças do Fígado',
+                    pancreatite: 'Pancreatite',
+                    cardiovascular: 'Doenças Cardiovasculares',
+                    intolerancia: 'Intolerâncias Alimentares'
+                };
+                return names[condition] || condition;
+            }
+            
+            getObjectiveName(objective) {
+                const names = {
+                    emagrecimento: 'Emagrecimento',
+                    hipertrofia: 'Hipertrofia Muscular',
+                    saude: 'Melhora da Saúde',
+                    manutencao: 'Manutenção do Peso',
+                    performance: 'Performance Esportiva'
+                };
+                return names[objective] || objective;
+            }
+            
+            openAssessmentForPatient(patientId) {
+                this.openModal('new-assessment-modal', () => {
+                    document.getElementById('assessment-patient').value = patientId;
+                });
+            }
+            
+            openMenuForPatient(patientId) {
+                this.openModal('new-menu-modal', () => {
+                    document.getElementById('menu-patient').value = patientId;
+                    // Adicionar uma refeição padrão
                     this.addMealTime();
                 });
+            }
+            
+            calculateAssessmentResults() {
+                const weight = parseFloat(document.getElementById('assessment-weight').value);
+                const height = parseFloat(document.getElementById('assessment-height').value);
+                const waist = parseFloat(document.getElementById('circ-waist').value);
+                const hip = parseFloat(document.getElementById('circ-hip').value);
+                
+                let resultsHTML = '';
+                
+                if (weight && height) {
+                    const imc = this.calculateIMC(weight, height);
+                    resultsHTML += `
+                        <div style="margin-bottom: 15px;">
+                            <strong>IMC:</strong>
+                            <span style="font-weight: bold; margin-left: 10px;">${imc.imc} kg/m²</span>
+                            <span class="imc-indicator ${imc.colorClass}">${imc.classification}</span>
+                        </div>
+                    `;
+                }
+                
+                if (waist && hip) {
+                    const ratio = this.calculateWaistHipRatio(waist, hip);
+                    let ratioClass = '';
+                    let ratioStatus = '';
+                    
+                    const patientGender = document.getElementById('assessment-patient').value ? 
+                        this.getData().patients.find(p => p.id == document.getElementById('assessment-patient').value)?.gender : 'M';
+                    
+                    if (patientGender === 'F') {
+                        if (ratio > 0.85) {
+                            ratioClass = 'badge-danger';
+                            ratioStatus = 'Risco aumentado';
+                        } else {
+                            ratioClass = 'badge-success';
+                            ratioStatus = 'Normal';
+                        }
+                    } else {
+                        if (ratio > 0.90) {
+                            ratioClass = 'badge-danger';
+                            ratioStatus = 'Risco aumentado';
+                        } else {
+                            ratioClass = 'badge-success';
+                            ratioStatus = 'Normal';
+                        }
+                    }
+                    
+                    resultsHTML += `
+                        <div style="margin-bottom: 15px;">
+                            <strong>Relação Cintura/Quadril:</strong>
+                            <span style="font-weight: bold; margin-left: 10px;">${ratio}</span>
+                            <span class="badge ${ratioClass}">${ratioStatus}</span>
+                        </div>
+                    `;
+                }
+                
+                // Calcular % de gordura se houver dados do adipômetro
+                const triceps = document.getElementById('adip-triceps').value;
+                const abdominal = document.getElementById('adip-abdomen').value;
+                const suprailiaca = document.getElementById('adip-suprailíaca').value;
+                
+                if (triceps && abdominal && suprailiaca) {
+                    const adipometerData = { triceps, abdominal, suprailiaca };
+                    const patient = this.getData().patients.find(p => 
+                        p.id == document.getElementById('assessment-patient').value
+                    );
+                    
+                    if (patient) {
+                        const age = this.calculateAge(patient.birthdate);
+                        const fatPercent = this.calculateBodyFat(adipometerData, patient.gender, age);
+                        
+                        if (fatPercent) {
+                            let fatClass = '';
+                            let fatStatus = '';
+                            
+                            if (patient.gender === 'F') {
+                                if (fatPercent > 32) {
+                                    fatClass = 'badge-danger';
+                                    fatStatus = 'Alto';
+                                } else if (fatPercent > 25) {
+                                    fatClass = 'badge-warning';
+                                    fatStatus = 'Moderado';
+                                } else {
+                                    fatClass = 'badge-success';
+                                    fatStatus = 'Ideal';
+                                }
+                            } else {
+                                if (fatPercent > 25) {
+                                    fatClass = 'badge-danger';
+                                    fatStatus = 'Alto';
+                                } else if (fatPercent > 18) {
+                                    fatClass = 'badge-warning';
+                                    fatStatus = 'Moderado';
+                                } else {
+                                    fatClass = 'badge-success';
+                                    fatStatus = 'Ideal';
+                                }
+                            }
+                            
+                            resultsHTML += `
+                                <div>
+                                    <strong>% Gordura Corporal:</strong>
+                                    <span style="font-weight: bold; margin-left: 10px;">${fatPercent}%</span>
+                                    <span class="badge ${fatClass}">${fatStatus}</span>
+                                </div>
+                            `;
+                        }
+                    }
+                }
+                
+                document.getElementById('assessment-results').innerHTML = resultsHTML;
+                
+                // Gerar mensagem motivacional
+                this.generateAssessmentMessage();
+            }
+            
+            generateAssessmentMessage() {
+                const patientId = document.getElementById('assessment-patient').value;
+                const weight = parseFloat(document.getElementById('assessment-weight').value);
+                const height = parseFloat(document.getElementById('assessment-height').value);
+                
+                if (!patientId || !weight || !height) return;
+                
+                const currentAssessment = { weight, height };
+                const data = this.getData();
+                const previousAssessments = data.assessments.filter(a => a.patientId == patientId)
+                    .sort((a, b) => new Date(b.date) - new Date(a.date));
+                
+                const previousAssessment = previousAssessments.length > 0 ? previousAssessments[0] : null;
+                const message = this.getAssessmentMessage(currentAssessment, previousAssessment);
+                
+                document.getElementById('assessment-message').innerHTML = `
+                    <div class="version-message message-${message.type}">
+                        ${message.message}
+                    </div>
+                `;
+            }
+            
+            saveAssessment(event) {
+                event.preventDefault();
+                
+                const data = this.getData();
+                const newId = data.assessments.length > 0 ? Math.max(...data.assessments.map(a => a.id)) + 1 : 1;
+                
+                // Coletar dados do adipômetro
+                const adipometerData = {};
+                ['triceps', 'subescapular', 'abdomen', 'coxa', 'suprailíaca', 'peitoral', 'axilar'].forEach(field => {
+                    const value = document.getElementById(`adip-${field}`).value;
+                    if (value) adipometerData[field] = parseFloat(value);
+                });
+                
+                // Coletar circunferências
+                const circumferences = {};
+                ['waist', 'abdomen', 'hip', 'arm'].forEach(field => {
+                    const value = document.getElementById(`circ-${field}`).value;
+                    if (value) circumferences[field] = parseFloat(value);
+                });
+                
+                const assessment = {
+                    id: newId,
+                    patientId: parseInt(document.getElementById('assessment-patient').value),
+                    date: document.getElementById('assessment-date').value,
+                    weight: parseFloat(document.getElementById('assessment-weight').value),
+                    height: parseFloat(document.getElementById('assessment-height').value),
+                    adipometerData: Object.keys(adipometerData).length > 0 ? adipometerData : null,
+                    circumferences: Object.keys(circumferences).length > 0 ? circumferences : null,
+                    notes: document.getElementById('assessment-notes').value,
+                    createdAt: new Date().toISOString()
+                };
+                
+                data.assessments.push(assessment);
+                this.saveData(data);
+                
+                this.showMessage('success', 'Avaliação salva com sucesso!');
+                this.closeModal('new-assessment-modal');
             }
             
             addMealTime() {
@@ -2055,41 +2641,23 @@
                 
                 const mealGroup = document.createElement('div');
                 mealGroup.className = 'meal-time-group';
-                mealGroup.dataset.mealId = mealCount;
                 mealGroup.innerHTML = `
                     <div class="meal-time-header">
                         <div class="meal-time-title">
-                            <input type="text" class="form-control meal-time-input" value="${mealTime}" style="width: 200px;">
+                            <input type="text" class="form-control meal-time-input" value="${mealTime}" placeholder="Nome da refeição">
                         </div>
-                        <button type="button" class="btn btn-small btn-danger remove-meal-time">Remover</button>
+                        <button type="button" class="btn btn-small btn-danger" onclick="this.closest('.meal-time-group').remove()">Remover</button>
                     </div>
                     <div class="meal-items-container">
                         <div class="meal-item-row">
                             <input type="text" class="form-control meal-item-input" placeholder="Ex: 2 ovos mexidos, 1 fatia de pão integral">
-                            <button type="button" class="remove-meal-item">×</button>
+                            <button type="button" class="remove-meal-item" onclick="this.closest('.meal-item-row').remove()">×</button>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-small add-meal-item">+ Adicionar Item</button>
+                    <button type="button" class="btn btn-small" onclick="app.addMealItem(this.closest('.meal-time-group'))">+ Adicionar Item</button>
                 `;
                 
                 container.appendChild(mealGroup);
-                
-                // Configurar eventos
-                const removeBtn = mealGroup.querySelector('.remove-meal-time');
-                const addItemBtn = mealGroup.querySelector('.add-meal-item');
-                const removeItemBtn = mealGroup.querySelector('.remove-meal-item');
-                
-                removeBtn.addEventListener('click', () => {
-                    container.removeChild(mealGroup);
-                });
-                
-                addItemBtn.addEventListener('click', () => {
-                    this.addMealItem(mealGroup);
-                });
-                
-                removeItemBtn.addEventListener('click', function() {
-                    this.closest('.meal-item-row').remove();
-                });
             }
             
             addMealItem(mealGroup) {
@@ -2098,141 +2666,129 @@
                 itemRow.className = 'meal-item-row';
                 itemRow.innerHTML = `
                     <input type="text" class="form-control meal-item-input" placeholder="Ex: 1 iogurte natural, 1 colher de aveia">
-                    <button type="button" class="remove-meal-item">×</button>
+                    <button type="button" class="remove-meal-item" onclick="this.closest('.meal-item-row').remove()">×</button>
+                `;
+                container.appendChild(itemRow);
+            }
+            
+            saveMenu(event) {
+                event.preventDefault();
+                
+                const data = this.getData();
+                const newId = data.menus.length > 0 ? Math.max(...data.menus.map(m => m.id)) + 1 : 1;
+                
+                // Coletar refeições
+                const meals = {};
+                document.querySelectorAll('#meal-times-container .meal-time-group').forEach(group => {
+                    const timeInput = group.querySelector('.meal-time-input');
+                    const time = timeInput.value.trim();
+                    
+                    if (time) {
+                        const items = [];
+                        group.querySelectorAll('.meal-item-input').forEach(input => {
+                            if (input.value.trim()) {
+                                items.push(input.value.trim());
+                            }
+                        });
+                        
+                        if (items.length > 0) {
+                            meals[time] = items;
+                        }
+                    }
+                });
+                
+                // Coletar adaptações
+                const adaptations = [];
+                document.querySelectorAll('input[name="adaptations"]:checked').forEach(cb => {
+                    adaptations.push(cb.value);
+                });
+                
+                const menu = {
+                    id: newId,
+                    patientId: parseInt(document.getElementById('menu-patient').value),
+                    name: document.getElementById('menu-name').value,
+                    description: document.getElementById('menu-description').value,
+                    days: parseInt(document.getElementById('menu-days').value),
+                    calories: parseInt(document.getElementById('menu-calories').value),
+                    objective: document.getElementById('menu-objective').value,
+                    meals: meals,
+                    adaptations: adaptations,
+                    substitutions: document.getElementById('menu-substitutions').value,
+                    createdAt: new Date().toISOString()
+                };
+                
+                data.menus.push(menu);
+                this.saveData(data);
+                
+                this.showMessage('success', 'Cardápio criado com sucesso!');
+                this.closeModal('new-menu-modal');
+            }
+            
+            loadMenusPage() {
+                const data = this.getData();
+                
+                let html = `
+                    <div class="page-title">
+                        <h2>Cardápios</h2>
+                        <div>
+                            <button class="btn" onclick="app.openModal('new-menu-modal')">
+                                <i class="fas fa-plus"></i> Novo Cardápio
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="menus-container">
                 `;
                 
-                container.appendChild(itemRow);
-                
-                const removeBtn = itemRow.querySelector('.remove-meal-item');
-                removeBtn.addEventListener('click', function() {
-                    container.removeChild(itemRow);
-                });
-            }
-            
-            // ===== EVENT LISTENERS =====
-            setupEventListeners() {
-                // Botões do dashboard
-                document.getElementById('create-new-menu')?.addEventListener('click', () => {
-                    this.openCreateMenuModal();
-                });
-                
-                document.getElementById('add-new-food')?.addEventListener('click', () => {
-                    this.openModal('add-food-modal');
-                });
-                
-                document.getElementById('add-new-client')?.addEventListener('click', () => {
-                    this.openModal('add-client-modal');
-                });
-                
-                document.getElementById('quick-assessment')?.addEventListener('click', () => {
-                    this.openAssessmentModal();
-                });
-                
-                // Fechar modais
-                document.querySelectorAll('.close-modal, .close-modal-btn').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        this.closeAllModals();
-                    });
-                });
-                
-                // Fechar modal clicando fora
-                document.querySelectorAll('.modal').forEach(modal => {
-                    modal.addEventListener('click', (e) => {
-                        if (e.target === modal) {
-                            this.closeAllModals();
-                        }
-                    });
-                });
-                
-                // Formulários
-                document.getElementById('create-menu-form')?.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.createMenu();
-                });
-                
-                document.getElementById('assessment-form')?.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.saveAssessment();
-                });
-                
-                // Tipo de paciente (amputado)
-                document.querySelectorAll('input[name="patient-type"]').forEach(radio => {
-                    radio.addEventListener('change', (e) => {
-                        const amputationFields = document.getElementById('amputation-fields');
-                        if (e.target.value === 'amputado') {
-                            amputationFields.style.display = 'block';
-                        } else {
-                            amputationFields.style.display = 'none';
-                        }
-                    });
-                });
-            }
-            
-            // ===== DASHBOARD =====
-            loadDashboard() {
-                const stats = this.db.getDashboardStats();
-                
-                document.getElementById('total-menus').textContent = stats.total_menus;
-                document.getElementById('total-clients').textContent = stats.total_clients;
-                document.getElementById('total-foods').textContent = stats.total_foods;
-                document.getElementById('active-clients').textContent = stats.active_clients;
-                
-                this.loadRecentMenus(stats.recent_menus);
-            }
-            
-            loadRecentMenus(menus) {
-                const container = document.getElementById('recent-menus');
-                const clients = this.db.getAll('clients');
-                
-                if (!menus || menus.length === 0) {
-                    container.innerHTML = '<p>Nenhum cardápio criado ainda.</p>';
-                    return;
-                }
-                
-                let html = '';
-                menus.forEach(menu => {
-                    const client = clients.find(c => c.id === menu.client_id);
+                data.menus.forEach(menu => {
+                    const patient = data.patients.find(p => p.id === menu.patientId);
                     
                     html += `
                         <div class="menu-card">
                             <div class="menu-header">
                                 <h4>${menu.name}</h4>
-                                <p class="menu-client">${client ? client.name : 'Cliente não encontrado'}</p>
+                                <p class="menu-client">${patient ? patient.name : 'Paciente não encontrado'}</p>
                             </div>
                             <div class="menu-body">
-                                <p class="menu-description">${menu.description}</p>
+                                <p class="menu-description">${menu.description || 'Sem descrição'}</p>
                                 <div class="menu-meals">
                                     ${Object.entries(menu.meals).slice(0, 2).map(([time, items]) => `
                                         <div class="meal-item">
                                             <div class="meal-time">${time}:</div>
-                                            <div>${Array.isArray(items) ? items[0] : items}</div>
+                                            <div>${items[0] || ''}</div>
                                         </div>
                                     `).join('')}
                                 </div>
                             </div>
                             <div class="menu-footer">
-                                <span>${menu.days} dias • ${menu.total_calories} kcal/dia</span>
+                                <span>${menu.days} dias • ${menu.calories} kcal</span>
                                 <div class="action-buttons">
                                     <button class="btn btn-small" onclick="app.viewMenu(${menu.id})">Ver</button>
-                                    <button class="btn btn-small btn-secondary" onclick="app.editMenu(${menu.id})">Editar</button>
                                 </div>
                             </div>
                         </div>
                     `;
                 });
                 
-                container.innerHTML = html;
+                html += `</div>`;
+                document.getElementById('menus-page').innerHTML = html;
             }
             
-            // ===== PÁGINAS ESPECÍFICAS =====
-            loadTacoPage() {
-                const tacoFoods = this.db.getTACOFoods();
+            viewMenu(menuId) {
+                // Implementação simplificada para visualização de cardápio
+                alert(`Visualizando cardápio ${menuId}`);
+            }
+            
+            loadAssessmentsPage() {
+                const data = this.getData();
                 
-                const html = `
+                let html = `
                     <div class="page-title">
-                        <h2>Tabela TACO</h2>
+                        <h2>Avaliações</h2>
                         <div>
-                            <input type="text" id="search-taco" class="form-control" placeholder="Buscar alimentos..." style="width: 300px;">
+                            <button class="btn btn-accent" onclick="app.openModal('new-assessment-modal')">
+                                <i class="fas fa-plus"></i> Nova Avaliação
+                            </button>
                         </div>
                     </div>
                     
@@ -2240,78 +2796,194 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Código</th>
+                                    <th>Data</th>
+                                    <th>Paciente</th>
+                                    <th>Peso (kg)</th>
+                                    <th>Altura (cm)</th>
+                                    <th>IMC</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+                
+                data.assessments.sort((a, b) => new Date(b.date) - new Date(a.date))
+                    .forEach(assessment => {
+                        const patient = data.patients.find(p => p.id === assessment.patientId);
+                        const imc = this.calculateIMC(assessment.weight, assessment.height);
+                        
+                        html += `
+                            <tr>
+                                <td>${new Date(assessment.date).toLocaleDateString()}</td>
+                                <td>${patient ? patient.name : 'Paciente não encontrado'}</td>
+                                <td>${assessment.weight}</td>
+                                <td>${assessment.height}</td>
+                                <td>
+                                    ${imc.imc}
+                                    <span class="imc-indicator ${imc.colorClass}">${imc.classification}</span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-small">Detalhes</button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                
+                html += `</tbody></table></div>`;
+                document.getElementById('assessments-page').innerHTML = html;
+            }
+            
+            loadFoodsPage() {
+                const data = this.getData();
+                
+                let html = `
+                    <div class="page-title">
+                        <h2>Alimentos - Tabela TACO</h2>
+                        <div>
+                            <input type="text" id="food-search" class="form-control" placeholder="Buscar alimentos..." style="width: 300px;">
+                        </div>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
                                     <th>Alimento</th>
                                     <th>Categoria</th>
-                                    <th>Energia (kcal)</th>
-                                    <th>Proteínas (g)</th>
-                                    <th>Carboidratos (g)</th>
-                                    <th>Gorduras (g)</th>
+                                    <th>Calorias</th>
+                                    <th>Proteínas</th>
+                                    <th>Carboidratos</th>
+                                    <th>Gorduras</th>
                                     <th>Medida Caseira</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                ${tacoFoods.map(food => `
-                                    <tr>
-                                        <td>${food.code}</td>
-                                        <td><strong>${food.name}</strong></td>
-                                        <td>${food.category}</td>
-                                        <td>${food.energy_kcal}</td>
-                                        <td>${food.protein_g}</td>
-                                        <td>${food.carbohydrate_g}</td>
-                                        <td>${food.lipid_g}</td>
-                                        <td><span class="home-measure-badge">${food.home_measure}</span></td>
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                    </div>
                 `;
                 
-                document.getElementById('taco-page').innerHTML = html;
+                data.foods.forEach(food => {
+                    html += `
+                        <tr>
+                            <td><strong>${food.name}</strong></td>
+                            <td>${food.category}</td>
+                            <td>${food.calories} kcal</td>
+                            <td>${food.protein}g</td>
+                            <td>${food.carbs}g</td>
+                            <td>${food.fat}g</td>
+                            <td><span class="home-measure-badge">${food.homeMeasure}</span></td>
+                        </tr>
+                    `;
+                });
                 
-                // Configurar busca
-                document.getElementById('search-taco')?.addEventListener('input', (e) => {
-                    this.searchTACOFoods(e.target.value);
+                html += `</tbody></table></div>`;
+                document.getElementById('foods-page').innerHTML = html;
+                
+                // Adicionar busca
+                document.getElementById('food-search').addEventListener('input', (e) => {
+                    this.searchFoods(e.target.value);
                 });
             }
             
-            searchTACOFoods(query) {
-                const foods = this.db.getTACOFoods(query);
-                const tableBody = document.querySelector('#taco-page tbody');
+            searchFoods(query) {
+                const data = this.getData();
+                const filtered = data.foods.filter(food => 
+                    food.name.toLowerCase().includes(query.toLowerCase()) ||
+                    food.category.toLowerCase().includes(query.toLowerCase())
+                );
                 
-                if (tableBody) {
-                    tableBody.innerHTML = foods.map(food => `
-                        <tr>
-                            <td>${food.code}</td>
-                            <td><strong>${food.name}</strong></td>
-                            <td>${food.category}</td>
-                            <td>${food.energy_kcal}</td>
-                            <td>${food.protein_g}</td>
-                            <td>${food.carbohydrate_g}</td>
-                            <td>${food.lipid_g}</td>
-                            <td><span class="home-measure-badge">${food.home_measure}</span></td>
-                        </tr>
+                const tbody = document.querySelector('#foods-page tbody');
+                tbody.innerHTML = filtered.map(food => `
+                    <tr>
+                        <td><strong>${food.name}</strong></td>
+                        <td>${food.category}</td>
+                        <td>${food.calories} kcal</td>
+                        <td>${food.protein}g</td>
+                        <td>${food.carbs}g</td>
+                        <td>${food.fat}g</td>
+                        <td><span class="home-measure-badge">${food.homeMeasure}</span></td>
+                    </tr>
+                `).join('');
+            }
+            
+            loadGuidelinesPage() {
+                const data = this.getData();
+                
+                let html = `
+                    <div class="page-title">
+                        <h2>Orientações Nutricionais</h2>
+                        <div>
+                            <select id="guideline-filter" class="form-control" style="width: 250px;">
+                                <option value="">Todas as condições</option>
+                                <option value="diabetes">Diabetes</option>
+                                <option value="hipertensao">Hipertensão</option>
+                                <option value="colesterol">Colesterol</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div id="guidelines-container" class="guidelines-container">
+                `;
+                
+                data.guidelines.forEach(guide => {
+                    html += `
+                        <div class="guideline-card">
+                            <div class="guideline-header">
+                                <i class="${guide.icon}"></i>
+                                <h4>${guide.title}</h4>
+                            </div>
+                            <div class="guideline-content">
+                                <p><strong>Recomendações:</strong></p>
+                                <ul class="guideline-list">
+                                    ${guide.recommendations.map(rec => `<li>${rec}</li>`).join('')}
+                                </ul>
+                                
+                                <p style="margin-top: 15px;"><strong>Evitar:</strong></p>
+                                <ul class="guideline-list">
+                                    ${guide.avoid.map(av => `<li>${av}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += `</div>`;
+                document.getElementById('guidelines-page').innerHTML = html;
+                
+                // Adicionar filtro
+                document.getElementById('guideline-filter').addEventListener('change', (e) => {
+                    const filter = e.target.value;
+                    const filtered = filter ? 
+                        data.guidelines.filter(g => g.disease === filter) : 
+                        data.guidelines;
+                    
+                    const container = document.getElementById('guidelines-container');
+                    container.innerHTML = filtered.map(guide => `
+                        <div class="guideline-card">
+                            <div class="guideline-header">
+                                <i class="${guide.icon}"></i>
+                                <h4>${guide.title}</h4>
+                            </div>
+                            <div class="guideline-content">
+                                <p><strong>Recomendações:</strong></p>
+                                <ul class="guideline-list">
+                                    ${guide.recommendations.map(rec => `<li>${rec}</li>`).join('')}
+                                </ul>
+                                
+                                <p style="margin-top: 15px;"><strong>Evitar:</strong></p>
+                                <ul class="guideline-list">
+                                    ${guide.avoid.map(av => `<li>${av}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
                     `).join('');
-                }
+                });
             }
             
             loadSubstitutionsPage() {
-                const substitutions = this.db.getFoodSubstitutions();
-                const categories = [...new Set(substitutions.map(s => s.category))];
+                const data = this.getData();
                 
-                const html = `
+                let html = `
                     <div class="page-title">
                         <h2>Substituições Alimentares</h2>
-                    </div>
-                    
-                    <div style="margin-bottom: 20px;">
-                        <div style="display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap;">
-                            <button class="food-category-btn active" data-category="">Todas</button>
-                            ${categories.map(category => `
-                                <button class="food-category-btn" data-category="${category}">${category}</button>
-                            `).join('')}
-                        </div>
                     </div>
                     
                     <div class="table-container">
@@ -2325,628 +2997,90 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                ${substitutions.map(sub => `
-                                    <tr>
-                                        <td><strong>${sub.original}</strong></td>
-                                        <td>${sub.substitution}</td>
-                                        <td>${sub.reason}</td>
-                                        <td><span class="objective-badge">${sub.category}</span></td>
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                    </div>
                 `;
                 
-                document.getElementById('substitutions-page').innerHTML = html;
-                
-                // Configurar filtros por categoria
-                document.querySelectorAll('#substitutions-page .food-category-btn').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        const category = e.target.dataset.category;
-                        this.filterSubstitutions(category);
-                        
-                        document.querySelectorAll('#substitutions-page .food-category-btn').forEach(b => {
-                            b.classList.remove('active');
-                        });
-                        e.target.classList.add('active');
-                    });
-                });
-            }
-            
-            filterSubstitutions(category) {
-                const substitutions = this.db.getFoodSubstitutions(category);
-                const tableBody = document.querySelector('#substitutions-page tbody');
-                
-                if (tableBody) {
-                    tableBody.innerHTML = substitutions.map(sub => `
+                data.substitutions.forEach(sub => {
+                    html += `
                         <tr>
                             <td><strong>${sub.original}</strong></td>
                             <td>${sub.substitution}</td>
                             <td>${sub.reason}</td>
-                            <td><span class="objective-badge">${sub.category}</span></td>
+                            <td><span class="badge badge-info">${sub.category}</span></td>
                         </tr>
-                    `).join('');
-                }
+                    `;
+                });
+                
+                html += `</tbody></table></div>`;
+                document.getElementById('substitutions-page').innerHTML = html;
             }
             
-            loadGuidelinesPage() {
-                const guidelines = this.db.getNutritionalGuidelines();
-                
+            loadReportsPage() {
                 const html = `
                     <div class="page-title">
-                        <h2>Orientações Nutricionais</h2>
-                        <div>
-                            <select id="filter-guidelines" class="form-control" style="width: 200px;">
-                                <option value="">Todas as condições</option>
-                                <option value="diabetes">Diabetes</option>
-                                <option value="hipertensao">Hipertensão</option>
-                                <option value="colesterol">Colesterol</option>
-                                <option value="triglicerideos">Triglicerídeos</option>
-                                <option value="figado">Fígado</option>
-                                <option value="pancreatite">Pancreatite</option>
-                                <option value="cardiovascular">Cardiovascular</option>
-                            </select>
-                        </div>
+                        <h2>Relatórios</h2>
                     </div>
                     
-                    <div id="guidelines-container" class="guidelines-container">
-                        ${this.getGuidelinesHTML(guidelines)}
+                    <div style="padding: 30px; text-align: center; color: var(--gray-color);">
+                        <i class="fas fa-chart-bar" style="font-size: 4rem; margin-bottom: 20px; opacity: 0.5;"></i>
+                        <h3>Módulo de Relatórios</h3>
+                        <p style="margin-top: 15px;">Em desenvolvimento - Em breve disponível</p>
+                        <p>Estatísticas avançadas, gráficos de evolução e relatórios personalizados</p>
                     </div>
                 `;
                 
-                document.getElementById('guidelines-page').innerHTML = html;
-                
-                // Configurar filtro
-                document.getElementById('filter-guidelines')?.addEventListener('change', (e) => {
-                    const filteredGuidelines = this.db.getNutritionalGuidelines(e.target.value);
-                    document.getElementById('guidelines-container').innerHTML = this.getGuidelinesHTML(filteredGuidelines);
-                });
+                document.getElementById('reports-page').innerHTML = html;
             }
             
-            getGuidelinesHTML(guidelines) {
-                if (guidelines.length === 0) {
-                    return `
-                        <div style="text-align: center; padding: 40px 20px; color: var(--gray-color); grid-column: 1 / -1;">
-                            <i class="fas fa-book-medical" style="font-size: 3rem; margin-bottom: 15px; opacity: 0.5;"></i>
-                            <p>Nenhuma orientação encontrada para esta condição.</p>
-                        </div>
-                    `;
-                }
-                
-                return guidelines.map(guide => `
-                    <div class="guideline-card">
-                        <div class="guideline-header">
-                            <i class="${guide.icon}"></i>
-                            <h4>${guide.title}</h4>
-                        </div>
-                        <div class="guideline-content">
-                            <p><strong>Recomendações:</strong></p>
-                            <ul class="guideline-list">
-                                ${guide.recommendations.map(rec => `<li>${rec}</li>`).join('')}
-                            </ul>
-                            
-                            <p style="margin-top: 15px;"><strong>Evitar:</strong></p>
-                            <ul class="guideline-list">
-                                ${guide.avoid.map(av => `<li>${av}</li>`).join('')}
-                            </ul>
-                        </div>
-                    </div>
-                `).join('');
-            }
-            
-            // ===== AVALIAÇÃO ANTROPOMÉTRICA =====
-            openAssessmentModal(clientId = null) {
-                const modal = document.getElementById('assessment-modal');
-                modal.style.display = 'flex';
-                
-                // Configurar data atual
-                const today = new Date().toISOString().split('T')[0];
-                document.getElementById('assessment-date').value = today;
-                
-                // Popular select de clientes
-                this.populateClientSelect('assessment-client', clientId);
-                
-                // Resetar tabs
-                modal.querySelectorAll('.tab').forEach((tab, index) => {
-                    tab.classList.remove('active');
-                    if (index === 0) tab.classList.add('active');
-                });
-                
-                modal.querySelectorAll('.tab-content').forEach((content, index) => {
-                    content.classList.remove('active');
-                    if (index === 0) content.classList.add('active');
-                });
-            }
-            
-            calculateAssessmentResults() {
-                const weight = parseFloat(document.getElementById('assessment-weight').value);
-                const height = parseFloat(document.getElementById('assessment-height').value);
-                const waist = parseFloat(document.getElementById('circ-waist').value);
-                const hip = parseFloat(document.getElementById('circ-hip').value);
-                
-                // Calcular IMC
-                if (weight && height) {
-                    const imcResult = this.db.calculateIMC(weight, height);
-                    document.getElementById('result-imc').textContent = imcResult.imc;
-                    document.getElementById('result-imc-class').textContent = imcResult.classification;
-                    document.getElementById('result-imc-class').className = `imc-indicator ${imcResult.colorClass}`;
-                }
-                
-                // Calcular relação cintura/quadril
-                if (waist && hip) {
-                    const waistHipRatio = (waist / hip).toFixed(2);
-                    document.getElementById('result-waist-hip').textContent = waistHipRatio;
-                }
-                
-                // Calcular % de gordura (simplificado)
-                const triceps = parseFloat(document.getElementById('adip-triceps').value);
-                const abdominal = parseFloat(document.getElementById('adip-abdomen').value);
-                const suprailiaca = parseFloat(document.getElementById('adip-suprailíaca').value);
-                
-                if (triceps && abdominal && suprailiaca) {
-                    const adipometerData = { triceps, abdominal, suprailiaca };
-                    const fatPercent = this.db.calculateBodyFat(adipometerData, 'M', 30); // Valores exemplo
-                    document.getElementById('result-fat-percent').textContent = `${fatPercent}%`;
-                }
-                
-                // Gerar mensagem motivacional
-                this.generateAssessmentMessage();
-            }
-            
-            generateAssessmentMessage() {
-                const clientId = document.getElementById('assessment-client').value;
-                if (!clientId) return;
-                
-                const weight = parseFloat(document.getElementById('assessment-weight').value);
-                const height = parseFloat(document.getElementById('assessment-height').value);
-                
-                if (!weight || !height) return;
-                
-                const currentAssessment = {
-                    weight,
-                    height,
-                    date: document.getElementById('assessment-date').value
-                };
-                
-                // Buscar avaliação anterior
-                const versions = this.db.getClientVersions(clientId);
-                const previousAssessment = versions.length > 0 ? versions[0] : null;
-                
-                // Gerar mensagem
-                const message = this.db.getAssessmentMessage(currentAssessment, previousAssessment);
-                
-                const messageDiv = document.getElementById('results-message');
-                messageDiv.innerHTML = `
-                    <div class="version-message message-${message.messageType}">
-                        ${message.message}
-                    </div>
-                `;
-            }
-            
-            saveAssessment() {
-                const clientId = document.getElementById('assessment-client').value;
-                const date = document.getElementById('assessment-date').value;
-                const weight = parseFloat(document.getElementById('assessment-weight').value);
-                const height = parseFloat(document.getElementById('assessment-height').value);
-                const patientType = document.querySelector('input[name="patient-type"]:checked').value;
-                
-                // Coletar dados do adipômetro
-                const adipometerData = {
-                    triceps: parseFloat(document.getElementById('adip-triceps').value) || null,
-                    subescapular: parseFloat(document.getElementById('adip-subescapular').value) || null,
-                    abdominal: parseFloat(document.getElementById('adip-abdomen').value) || null,
-                    coxa: parseFloat(document.getElementById('adip-coxa').value) || null,
-                    suprailíaca: parseFloat(document.getElementById('adip-suprailíaca').value) || null,
-                    peitoral: parseFloat(document.getElementById('adip-peitoral').value) || null,
-                    axilar: parseFloat(document.getElementById('adip-axilar').value) || null
-                };
-                
-                // Coletar circunferências
-                const circumferences = {
-                    waist: parseFloat(document.getElementById('circ-waist').value) || null,
-                    abdomen: parseFloat(document.getElementById('circ-abdomen').value) || null,
-                    hip: parseFloat(document.getElementById('circ-hip').value) || null,
-                    arm: parseFloat(document.getElementById('circ-arm').value) || null
-                };
-                
-                // Coletar dados de amputação se aplicável
-                let amputationData = null;
-                if (patientType === 'amputado') {
-                    amputationData = {
-                        type: document.getElementById('amputation-type').value,
-                        side: document.getElementById('amputation-side').value
-                    };
-                }
-                
-                const assessmentData = {
-                    date,
-                    weight,
-                    height,
-                    patientType,
-                    adipometerData,
-                    circumferences,
-                    amputationData,
-                    notes: document.getElementById('assessment-notes').value
-                };
-                
-                // Salvar versão
-                this.db.addClientVersion(clientId, assessmentData);
-                
-                // Atualizar cliente com dados mais recentes
-                const client = this.db.getById('clients', clientId);
-                if (client) {
-                    client.last_assessment = date;
-                    client.current_weight = weight;
-                    client.current_height = height;
-                    this.db.update('clients', clientId, client);
-                }
-                
-                this.showMessage('success', 'Avaliação salva com sucesso!');
-                this.closeAllModals();
-                
-                // Atualizar visualização se estiver na página de clientes
-                if (this.currentPage === 'clients') {
-                    this.loadClientsPage();
-                }
-            }
-            
-            // ===== FUNÇÕES AUXILIARES =====
-            populateClientSelect(selectId, selectedId = null) {
-                const clients = this.db.getAll('clients');
-                const select = document.getElementById(selectId);
-                
-                if (select) {
-                    select.innerHTML = '<option value="">Selecione um cliente</option>';
-                    clients.forEach(client => {
-                        const option = document.createElement('option');
-                        option.value = client.id;
-                        option.textContent = client.name;
-                        if (selectedId && client.id == selectedId) {
-                            option.selected = true;
-                        }
-                        select.appendChild(option);
-                    });
-                }
-            }
-            
-            showMessage(type, text, containerId = null) {
-                const container = containerId ? document.getElementById(containerId) : document.querySelector('.content-area');
-                if (!container) return;
-                
+            showMessage(type, text) {
+                // Criar elemento de mensagem
                 const messageDiv = document.createElement('div');
                 messageDiv.className = `message ${type}`;
                 messageDiv.innerHTML = `
                     ${text}
-                    <span style="float: right; cursor: pointer;" onclick="this.parentElement.style.display='none'">×</span>
+                    <span style="float: right; cursor: pointer;" onclick="this.parentElement.remove()">×</span>
                 `;
                 messageDiv.style.display = 'block';
                 
-                // Remover mensagens anteriores
-                const existingMessages = container.querySelectorAll('.message');
-                existingMessages.forEach(msg => msg.remove());
+                // Adicionar ao conteúdo principal
+                const contentArea = document.querySelector('.content-area');
+                contentArea.insertBefore(messageDiv, contentArea.firstChild);
                 
-                container.insertBefore(messageDiv, container.firstChild);
-                
+                // Remover após 5 segundos
                 setTimeout(() => {
-                    messageDiv.style.display = 'none';
+                    if (messageDiv.parentElement) {
+                        messageDiv.remove();
+                    }
                 }, 5000);
             }
             
-            openModal(modalId) {
-                const modal = document.getElementById(modalId);
-                if (modal) {
-                    modal.style.display = 'flex';
-                }
-            }
-            
-            closeAllModals() {
-                document.querySelectorAll('.modal').forEach(modal => {
-                    modal.style.display = 'none';
-                });
-                
-                document.querySelectorAll('form').forEach(form => form.reset());
-                
-                // Resetar editor de refeições
-                const mealContainer = document.getElementById('meal-times-container');
-                if (mealContainer) {
-                    mealContainer.innerHTML = `
-                        <div class="meal-time-group" data-meal-id="1">
-                            <div class="meal-time-header">
-                                <div class="meal-time-title">
-                                    <input type="text" class="form-control meal-time-input" value="Café da manhã (8h)" style="width: 200px;">
-                                </div>
-                                <button type="button" class="btn btn-small btn-danger remove-meal-time">Remover</button>
-                            </div>
-                            <div class="meal-items-container">
-                                <div class="meal-item-row">
-                                    <input type="text" class="form-control meal-item-input" placeholder="Ex: 2 ovos mexidos, 1 fatia de pão integral">
-                                    <button type="button" class="remove-meal-item">×</button>
-                                </div>
-                            </div>
-                            <button type="button" class="btn btn-small add-meal-item">+ Adicionar Item</button>
-                        </div>
-                    `;
-                }
-            }
-            
-            // ===== FUNÇÕES DE CRIAÇÃO (simplificadas) =====
-            createMenu() {
-                // Implementação simplificada
-                const name = document.getElementById('menu-name').value;
-                const clientId = document.getElementById('menu-client').value;
-                
-                if (!name || !clientId) {
-                    this.showMessage('error', 'Preencha todos os campos obrigatórios!');
-                    return;
-                }
-                
-                // Coletar refeições
-                const meals = {};
-                const mealGroups = document.querySelectorAll('#meal-times-container .meal-time-group');
-                
-                mealGroups.forEach(group => {
-                    const timeInput = group.querySelector('.meal-time-input');
-                    const time = timeInput ? timeInput.value : 'Refeição';
-                    
-                    const items = [];
-                    group.querySelectorAll('.meal-item-input').forEach(input => {
-                        if (input.value.trim()) {
-                            items.push(input.value.trim());
-                        }
-                    });
-                    
-                    if (items.length > 0) {
-                        meals[time] = items;
+            navigateTo(page) {
+                // Atualizar navegação
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.dataset.page === page) {
+                        link.classList.add('active');
                     }
                 });
                 
-                const menuData = {
-                    name,
-                    client_id: parseInt(clientId),
-                    description: document.getElementById('menu-description').value,
-                    days: parseInt(document.getElementById('menu-days').value) || 7,
-                    total_calories: parseInt(document.getElementById('menu-calories').value) || 1800,
-                    total_protein: parseInt(document.getElementById('menu-protein').value) || 0,
-                    total_carbs: parseInt(document.getElementById('menu-carbs').value) || 0,
-                    total_fat: parseInt(document.getElementById('menu-fat').value) || 0,
-                    objective: document.getElementById('menu-objective').value,
-                    meals
-                };
-                
-                this.db.create('menus', menuData);
-                
-                this.showMessage('success', 'Cardápio criado com sucesso!');
-                this.closeAllModals();
-                
-                // Atualizar visualização
-                if (this.currentPage === 'dashboard') {
-                    this.loadDashboard();
-                } else if (this.currentPage === 'menus') {
-                    this.loadMenusPage();
-                }
-            }
-            
-            // ===== CARREGAR OUTRAS PÁGINAS (simplificadas) =====
-            loadMenusPage() {
-                // Implementação similar à anterior
-                const html = `
-                    <div class="page-title">
-                        <h2>Cardápios</h2>
-                        <div>
-                            <button class="btn" id="create-menu-from-page">
-                                <i class="fas fa-plus"></i> Novo Cardápio
-                            </button>
-                        </div>
-                    </div>
-                    <p>Página de cardápios - funcionalidade completa disponível.</p>
-                `;
-                
-                document.getElementById('menus-page').innerHTML = html;
-                
-                document.getElementById('create-menu-from-page')?.addEventListener('click', () => {
-                    this.openCreateMenuModal();
-                });
-            }
-            
-            loadClientsPage() {
-                const clients = this.db.getAll('clients');
-                
-                const html = `
-                    <div class="page-title">
-                        <h2>Clientes</h2>
-                        <div>
-                            <button class="btn" id="add-client-from-page">
-                                <i class="fas fa-user-plus"></i> Adicionar Cliente
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Email</th>
-                                    <th>Telefone</th>
-                                    <th>Última Avaliação</th>
-                                    <th>IMC Atual</th>
-                                    <th>Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${clients.map(client => {
-                                    const imcResult = this.db.calculateIMC(client.current_weight || client.weight, client.current_height || client.height);
-                                    return `
-                                        <tr>
-                                            <td><strong>${client.name}</strong></td>
-                                            <td>${client.email}</td>
-                                            <td>${client.phone || 'Não informado'}</td>
-                                            <td>${client.last_assessment || 'Nunca avaliado'}</td>
-                                            <td>
-                                                ${imcResult.imc || '-'}
-                                                ${imcResult.imc ? `<span class="imc-indicator ${imcResult.colorClass}">${imcResult.classification}</span>` : ''}
-                                            </td>
-                                            <td class="action-buttons">
-                                                <button class="btn btn-small" onclick="app.viewClient(${client.id})">Ver</button>
-                                                <button class="btn btn-small btn-accent" onclick="app.openAssessmentModal(${client.id})">Avaliar</button>
-                                            </td>
-                                        </tr>
-                                    `;
-                                }).join('')}
-                            </tbody>
-                        </table>
-                    </div>
-                `;
-                
-                document.getElementById('clients-page').innerHTML = html;
-                
-                document.getElementById('add-client-from-page')?.addEventListener('click', () => {
-                    this.openModal('add-client-modal');
-                });
-            }
-            
-            loadFoodsPage() {
-                const html = `
-                    <div class="page-title">
-                        <h2>Alimentos</h2>
-                        <div>
-                            <button class="btn" id="add-food-from-page">
-                                <i class="fas fa-carrot"></i> Adicionar Alimento
-                            </button>
-                        </div>
-                    </div>
-                    <p>Página de alimentos - funcionalidade completa disponível.</p>
-                `;
-                
-                document.getElementById('foods-page').innerHTML = html;
-                
-                document.getElementById('add-food-from-page')?.addEventListener('click', () => {
-                    this.openModal('add-food-modal');
-                });
-            }
-            
-            loadExportPage() {
-                const html = `
-                    <div class="page-title">
-                        <h2>Exportar Dados</h2>
-                    </div>
-                    <p>Sistema de exportação completo disponível.</p>
-                `;
-                
-                document.getElementById('export-page').innerHTML = html;
-            }
-            
-            openCreateMenuModal() {
-                const modal = document.getElementById('create-menu-modal');
-                modal.style.display = 'flex';
-                
-                // Popular select de clientes
-                this.populateClientSelect('menu-client');
-                
-                // Resetar tabs
-                modal.querySelectorAll('.tab').forEach((tab, index) => {
-                    tab.classList.remove('active');
-                    if (index === 0) tab.classList.add('active');
-                });
-                
-                modal.querySelectorAll('.tab-content').forEach((content, index) => {
-                    content.classList.remove('active');
-                    if (index === 0) content.classList.add('active');
-                });
-            }
-            
-            // ===== FUNÇÕES DE VISUALIZAÇÃO =====
-            viewClient(clientId) {
-                const client = this.db.getById('clients', clientId);
-                if (!client) return;
-                
-                // Buscar versões do cliente
-                const versions = this.db.getClientVersions(clientId);
-                
-                let content = `
-                    <h3 style="color: var(--primary-color); margin-bottom: 20px;">${client.name}</h3>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 15px; margin-bottom: 25px;">
-                        <div style="background-color: #f8f9fa; padding: 15px; border-radius: var(--border-radius);">
-                            <strong>Informações Pessoais</strong>
-                            <p>Email: ${client.email}</p>
-                            <p>Telefone: ${client.phone || 'Não informado'}</p>
-                            <p>Idade: ${client.age || 'Não informada'} anos</p>
-                        </div>
-                        
-                        <div style="background-color: #f8f9fa; padding: 15px; border-radius: var(--border-radius);">
-                            <strong>Dados Antropométricos</strong>
-                            <p>Peso atual: ${client.current_weight || client.weight || 'Não informado'} kg</p>
-                            <p>Altura: ${client.current_height || client.height || 'Não informada'} cm</p>
-                            <p>Última avaliação: ${client.last_assessment || 'Nunca avaliado'}</p>
-                        </div>
-                    </div>
-                `;
-                
-                // Mostrar histórico de versões
-                if (versions.length > 0) {
-                    content += `
-                        <h4 style="color: var(--primary-color); margin-bottom: 15px; margin-top: 25px;">Histórico de Avaliações</h4>
-                        <div class="version-timeline">
-                    `;
-                    
-                    versions.forEach(version => {
-                        const versionData = version.data;
-                        const imcResult = this.db.calculateIMC(versionData.weight, versionData.height);
-                        const message = this.db.getAssessmentMessage(versionData, null);
-                        
-                        content += `
-                            <div class="version-item">
-                                <div class="version-date">${version.date}</div>
-                                <p><strong>Peso:</strong> ${versionData.weight} kg | <strong>Altura:</strong> ${versionData.height} cm</p>
-                                <p><strong>IMC:</strong> ${imcResult.imc} (<span class="imc-indicator ${imcResult.colorClass}">${imcResult.classification}</span>)</p>
-                                <div class="version-message message-${message.messageType}">
-                                    ${message.message}
-                                </div>
-                            </div>
-                        `;
-                    });
-                    
-                    content += `</div>`;
-                }
-                
-                // Criar modal dinâmico
-                const modal = document.createElement('div');
-                modal.className = 'modal';
-                modal.style.display = 'flex';
-                modal.innerHTML = `
-                    <div class="modal-content" style="max-width: 800px;">
-                        <span class="close-modal" onclick="this.parentElement.parentElement.style.display='none'">&times;</span>
-                        <div class="modal-header">
-                            <h3>Detalhes do Cliente</h3>
-                        </div>
-                        <div style="padding: 20px; max-height: 70vh; overflow-y: auto;">
-                            ${content}
-                        </div>
-                        <div style="margin-top: 25px; display: flex; justify-content: flex-end; gap: 10px; padding: 0 20px 20px;">
-                            <button class="btn btn-accent" onclick="app.openAssessmentModal(${client.id})">Nova Avaliação</button>
-                            <button class="btn btn-secondary" onclick="this.closest('.modal').style.display='none'">Fechar</button>
-                        </div>
-                    </div>
-                `;
-                
-                document.body.appendChild(modal);
-                
-                // Fechar ao clicar fora
-                modal.addEventListener('click', (e) => {
-                    if (e.target === modal) {
-                        modal.style.display = 'none';
-                    }
-                });
+                // Carregar página
+                this.loadPage(page);
             }
         }
         
-        // ===== INICIALIZAR APLICAÇÃO =====
+        // Inicializar aplicação
         let app;
         document.addEventListener('DOMContentLoaded', () => {
-            app = new AdvancedMarocaApp();
+            app = new NutriSystem();
             window.app = app;
+            
+            // Configurar data atual nos formulários
+            const today = new Date().toISOString().split('T')[0];
+            const dateInputs = document.querySelectorAll('input[type="date"]');
+            dateInputs.forEach(input => {
+                if (!input.value && !input.id.includes('birthdate')) {
+                    input.value = today;
+                }
+            });
         });
     </script>
 </body>
