@@ -1104,13 +1104,13 @@
                     <i class="fas fa-apple-alt"></i>
                 </div>
                 <div class="logo-text">
-                    <h1>NutriVision Pro</h1>
+                    <h1>Maroca Pro</h1>
                     <p>Sistema avançado de nutrição clínica</p>
                 </div>
             </div>
             
             <div class="user-info">
-                <div class="user-avatar">NV</div>
+                <div class="user-avatar">MP</div>
                 <div class="user-details">
                     <p><strong>Dra. Maria Oliveira</strong></p>
                     <p>Nutricionista CRN-12345</p>
@@ -1240,12 +1240,12 @@
             <div class="footer-logo">
                 <i class="fas fa-apple-alt"></i>
                 <div>
-                    <h3>NutriVision Pro</h3>
+                    <h3>Maroca Pro</h3>
                     <p>Sistema completo de gestão nutricional</p>
                 </div>
             </div>
             <div>
-                <p>&copy; 2023 NutriVision Pro. Versão 3.0</p>
+                <p>&copy; 2024 Maroca Pro. Versão 4.0</p>
             </div>
         </div>
     </footer>
@@ -1731,11 +1731,11 @@
 
     <script>
         // ============================================
-        // NUTRIVISION PRO - SISTEMA COMPLETO
-        // Versão 3.0 - Todas as funcionalidades funcionando
+        // MAROCA PRO - SISTEMA COMPLETO
+        // Versão 4.0 - Todos os botões funcionando
         // ============================================
         
-        class NutriVision {
+        class MarocaPro {
             constructor() {
                 this.currentTab = 'basic';
                 this.selectedFoods = [];
@@ -1744,7 +1744,7 @@
             }
             
             initDatabase() {
-                if (!localStorage.getItem('nutrivision_initialized')) {
+                if (!localStorage.getItem('maroca_initialized')) {
                     const initialData = {
                         patients: [],
                         assessments: [],
@@ -1757,8 +1757,8 @@
                         }
                     };
                     
-                    localStorage.setItem('nutrivision_data', JSON.stringify(initialData));
-                    localStorage.setItem('nutrivision_initialized', 'true');
+                    localStorage.setItem('maroca_data', JSON.stringify(initialData));
+                    localStorage.setItem('maroca_initialized', 'true');
                 }
             }
             
@@ -1874,7 +1874,7 @@
             }
             
             getData() {
-                const data = localStorage.getItem('nutrivision_data');
+                const data = localStorage.getItem('maroca_data');
                 return data ? JSON.parse(data) : {
                     patients: [],
                     assessments: [],
@@ -1886,13 +1886,13 @@
             }
             
             saveData(data) {
-                localStorage.setItem('nutrivision_data', JSON.stringify(data));
+                localStorage.setItem('maroca_data', JSON.stringify(data));
             }
             
             initApp() {
                 this.setupNavigation();
                 this.setupTabs();
-                this.setupModals();
+                this.setupModalEvents();
                 this.loadDashboard();
             }
             
@@ -1916,7 +1916,7 @@
                 });
             }
             
-            setupModals() {
+            setupModalEvents() {
                 document.querySelectorAll('.modal').forEach(modal => {
                     modal.addEventListener('click', (e) => {
                         if (e.target === modal) {
@@ -1927,47 +1927,54 @@
             }
             
             switchTab(tabId) {
-                // Atualizar tabs visíveis
-                const container = document.querySelector('.modal-content');
-                if (container) {
-                    container.querySelectorAll('.tab').forEach(tab => {
-                        tab.classList.remove('active');
-                        if (tab.dataset.tab === tabId) {
-                            tab.classList.add('active');
-                        }
-                    });
-                    
-                    container.querySelectorAll('.tab-content').forEach(content => {
-                        content.classList.remove('active');
-                        if (content.id === `tab-${tabId}`) {
-                            content.classList.add('active');
-                        }
-                    });
-                }
+                // Encontrar o modal ativo
+                const modal = document.querySelector('.modal[style*="display: flex"]');
+                if (!modal) return;
                 
-                // Executar ações específicas por tab
+                // Atualizar tabs
+                modal.querySelectorAll('.tab').forEach(tab => {
+                    tab.classList.toggle('active', tab.dataset.tab === tabId);
+                });
+                
+                // Atualizar conteúdos das tabs
+                modal.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.toggle('active', content.id === `tab-${tabId}`);
+                });
+                
+                // Atualizar tab atual
+                this.currentTab = tabId;
+                
+                // Ações específicas por tab
                 if (tabId === 'results') {
                     this.calculateAssessmentResults();
                 } else if (tabId === 'menu-taco') {
                     this.loadTACOFoodSearch();
                 }
-                
-                this.currentTab = tabId;
             }
             
             nextTab() {
-                const tabs = ['basic', 'anthropometric', 'adipometer', 'results'];
-                const currentIndex = tabs.indexOf(this.currentTab);
+                const modal = document.querySelector('.modal[style*="display: flex"]');
+                if (!modal) return;
+                
+                const tabs = Array.from(modal.querySelectorAll('.tab'));
+                const currentIndex = tabs.findIndex(tab => tab.classList.contains('active'));
+                
                 if (currentIndex < tabs.length - 1) {
-                    this.switchTab(tabs[currentIndex + 1]);
+                    const nextTab = tabs[currentIndex + 1];
+                    this.switchTab(nextTab.dataset.tab);
                 }
             }
             
             prevTab() {
-                const tabs = ['basic', 'anthropometric', 'adipometer', 'results'];
-                const currentIndex = tabs.indexOf(this.currentTab);
+                const modal = document.querySelector('.modal[style*="display: flex"]');
+                if (!modal) return;
+                
+                const tabs = Array.from(modal.querySelectorAll('.tab'));
+                const currentIndex = tabs.findIndex(tab => tab.classList.contains('active'));
+                
                 if (currentIndex > 0) {
-                    this.switchTab(tabs[currentIndex - 1]);
+                    const prevTab = tabs[currentIndex - 1];
+                    this.switchTab(prevTab.dataset.tab);
                 }
             }
             
@@ -2014,7 +2021,7 @@
                 document.getElementById('total-menus').textContent = data.menus.length;
                 document.getElementById('total-assessments').textContent = data.assessments.length;
                 
-                // Calcular retornos pendentes (última avaliação há mais de 30 dias)
+                // Calcular retornos pendentes
                 const today = new Date();
                 const dueFollowups = data.patients.filter(patient => {
                     const patientAssessments = data.assessments.filter(a => a.patientId === patient.id);
@@ -2480,7 +2487,7 @@
                                 </button>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-small" onclick="this.previousElementSibling.appendChild(this.createMealItemInput())" style="margin-top: 10px;">
+                        <button type="button" class="btn btn-small" onclick="this.previousElementSibling.appendChild(app.createMealItemInput())" style="margin-top: 10px;">
                             <i class="fas fa-plus"></i> Adicionar Item
                         </button>
                     </div>
@@ -3123,7 +3130,7 @@
             }
             
             // ============================================
-            // FUNÇÕES DE EXPORTAÇÃO (TODAS FUNCIONAIS)
+            // FUNÇÕES DE EXPORTAÇÃO
             // ============================================
             
             exportAssessmentPDF(assessmentId = null) {
@@ -3231,7 +3238,7 @@
                                 ` : ''}
                                 
                                 <div class="footer">
-                                    <p>Relatório gerado por NutriVision Pro - ${new Date().toLocaleDateString()}</p>
+                                    <p>Relatório gerado por Maroca Pro - ${new Date().toLocaleDateString()}</p>
                                     <p>Este relatório tem validade de 30 dias</p>
                                 </div>
                             </body>
@@ -3291,7 +3298,7 @@
                         ['OBSERVAÇÕES'],
                         [assessment.notes || ''],
                         [''],
-                        ['Relatório gerado por NutriVision Pro', new Date().toLocaleDateString()]
+                        ['Relatório gerado por Maroca Pro', new Date().toLocaleDateString()]
                     ];
                     
                     // Criar worksheet
@@ -3406,7 +3413,7 @@
                             ` : ''}
                             
                             <div class="footer">
-                                <p>Relatório gerado por NutriVision Pro - ${new Date().toLocaleDateString()}</p>
+                                <p>Relatório gerado por Maroca Pro - ${new Date().toLocaleDateString()}</p>
                                 <p>Dra. Maria Oliveira - CRN 12345</p>
                             </div>
                         </body>
@@ -3481,7 +3488,7 @@
                                 `).join('') : '<p>Nenhuma refeição cadastrada neste cardápio.</p>'}
                                 
                                 <div class="footer">
-                                    <p>Cardápio gerado por NutriVision Pro - ${new Date().toLocaleDateString()}</p>
+                                    <p>Cardápio gerado por Maroca Pro - ${new Date().toLocaleDateString()}</p>
                                     <p>Este cardápio é personalizado e deve ser seguido conforme orientação nutricional</p>
                                 </div>
                             </body>
@@ -3545,7 +3552,7 @@
                         ['3. Pratique atividade física regularmente'],
                         ['4. Siga as porções indicadas'],
                         [''],
-                        ['Cardápio gerado por NutriVision Pro', new Date().toLocaleDateString()]
+                        ['Cardápio gerado por Maroca Pro', new Date().toLocaleDateString()]
                     ];
                     
                     // Criar worksheet
@@ -3589,7 +3596,7 @@
                             food.homeMeasure
                         ]),
                         [''],
-                        ['Tabela gerada por NutriVision Pro', new Date().toLocaleDateString()]
+                        ['Tabela gerada por Maroca Pro', new Date().toLocaleDateString()]
                     ];
                     
                     // Criar worksheet
@@ -3634,7 +3641,7 @@
                                 </style>
                             </head>
                             <body>
-                                <h1>Lista de Pacientes - NutriVision Pro</h1>
+                                <h1>Lista de Pacientes - Maroca Pro</h1>
                                 
                                 <div class="summary">
                                     <p><strong>Total de Pacientes:</strong> ${data.patients.length}</p>
@@ -3671,7 +3678,7 @@
                                 </table>
                                 
                                 <div class="footer">
-                                    <p>Relatório gerado por NutriVision Pro - ${new Date().toLocaleDateString()}</p>
+                                    <p>Relatório gerado por Maroca Pro - ${new Date().toLocaleDateString()}</p>
                                     <p>Confidencial - Uso exclusivo do nutricionista</p>
                                 </div>
                             </body>
@@ -3702,7 +3709,7 @@
                     
                     // Criar dados para a planilha
                     const worksheetData = [
-                        ['LISTA DE PACIENTES - NUTRIVISION PRO'],
+                        ['LISTA DE PACIENTES - MAROCA PRO'],
                         ['Data do Relatório:', new Date().toLocaleDateString()],
                         ['Nutricionista:', 'Dra. Maria Oliveira - CRN 12345'],
                         ['Total de Pacientes:', data.patients.length],
@@ -3719,7 +3726,7 @@
                             patient.notes || ''
                         ]),
                         [''],
-                        ['Relatório gerado por NutriVision Pro', new Date().toLocaleDateString()]
+                        ['Relatório gerado por Maroca Pro', new Date().toLocaleDateString()]
                     ];
                     
                     // Criar worksheet
@@ -3763,7 +3770,7 @@
                                 </style>
                             </head>
                             <body>
-                                <h1>Histórico de Avaliações - NutriVision Pro</h1>
+                                <h1>Histórico de Avaliações - Maroca Pro</h1>
                                 
                                 <div class="summary">
                                     <p><strong>Total de Avaliações:</strong> ${data.assessments.length}</p>
@@ -3802,7 +3809,7 @@
                                 </table>
                                 
                                 <div class="footer">
-                                    <p>Relatório gerado por NutriVision Pro - ${new Date().toLocaleDateString()}</p>
+                                    <p>Relatório gerado por Maroca Pro - ${new Date().toLocaleDateString()}</p>
                                     <p>Confidencial - Uso exclusivo do nutricionista</p>
                                 </div>
                             </body>
@@ -3833,7 +3840,7 @@
                     
                     // Criar dados para a planilha
                     const worksheetData = [
-                        ['CARDÁPIOS - NUTRIVISION PRO'],
+                        ['CARDÁPIOS - MAROCA PRO'],
                         ['Data do Relatório:', new Date().toLocaleDateString()],
                         ['Total de Cardápios:', data.menus.length],
                         [''],
@@ -3851,7 +3858,7 @@
                             ];
                         }),
                         [''],
-                        ['Relatório gerado por NutriVision Pro', new Date().toLocaleDateString()]
+                        ['Relatório gerado por Maroca Pro', new Date().toLocaleDateString()]
                     ];
                     
                     // Criar worksheet
@@ -3895,7 +3902,7 @@
                                 </style>
                             </head>
                             <body>
-                                <h1>Relatório Completo - NutriVision Pro</h1>
+                                <h1>Relatório Completo - Maroca Pro</h1>
                                 
                                 <div class="summary">
                                     <h2>Resumo do Sistema</h2>
@@ -3984,7 +3991,7 @@
                                 </table>
                                 
                                 <div class="footer">
-                                    <p>Relatório gerado automaticamente por NutriVision Pro</p>
+                                    <p>Relatório gerado automaticamente por Maroca Pro</p>
                                     <p>${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}</p>
                                 </div>
                             </body>
@@ -4197,12 +4204,20 @@
             importTACOData() {
                 this.showMessage('info', 'Importação de dados TACO em desenvolvimento.');
             }
+            
+            editFood(foodId) {
+                this.showMessage('info', 'Edição de alimentos em desenvolvimento.');
+            }
+            
+            editPreparation(prepId) {
+                this.showMessage('info', 'Edição de preparos em desenvolvimento.');
+            }
         }
         
         // Inicializar aplicação
         let app;
         document.addEventListener('DOMContentLoaded', () => {
-            app = new NutriVision();
+            app = new MarocaPro();
             window.app = app;
             
             // Configurar datas padrão
